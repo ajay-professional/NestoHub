@@ -1,0 +1,8 @@
+node_modules/*
+logs/*
+package-lock.json
+test.env
+.eslintrc.js
+development.env
+tests
+
