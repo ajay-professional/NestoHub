@@ -49,6 +49,7 @@ exports.addBuilder = Joi.object().keys({
     termAndCondition:Joi.string().optional(),
 });
 
+
 exports.updateBuilder = Joi.object().keys({
     id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     phoneNumber: Joi.string().min(10).max(10).required(),
