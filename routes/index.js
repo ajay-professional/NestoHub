@@ -51,7 +51,7 @@ router.use("/dsa", dsaRoots);
 router.use("/claim", claimRoots);
 router.use("/requestProperty", RequestPropertyRoots);
 router.use("/requestNewProperty", RequestNewPropertyRoots);
-router.use("/getAllProperty", propertyRoots);
+router.use("/property", propertyRoots);
 router.use("/requirement", requirementRoots);
 router.use("/payment", paymentRoots);
 router.use("/notification", notificationRoots);
