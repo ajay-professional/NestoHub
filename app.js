@@ -66,7 +66,7 @@ const doc = {
     schemes: ['http'],
   };
   
-// swaggerAutogen(outputFile, endpointsFiles, doc);
+ swaggerAutogen(outputFile, endpointsFiles, doc);
 const swaggerDocument=require('./swagger-output.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use((req, res, next) => {
