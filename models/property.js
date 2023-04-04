@@ -21,7 +21,11 @@ const propertySchema = new Schema({
         unitType:{type: String, default: null},
         quantity:{type: String, default: null},
         furnishingStatus:{ type: String, default: null },
-        specifications:[{type: String, default: null}],
+        specifications:[{
+            name:{ type: String, default: null },
+            length:{ type: String, default: null },
+            breadth:{ type: String, default: null }
+        }],
         furnishingDetails:[{type: String, default: null}]
      }],
     location: { type: String, default: null },

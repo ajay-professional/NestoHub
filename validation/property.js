@@ -1,15 +1,5 @@
 const Joi = require('joi');
 
-exports.addOnBoarding = Joi.object().keys({
-    subCompany:Joi.string().required(),
-    builderName:Joi.string().required(),
-    representative:Joi.string().required(),
-    contactNumber:Joi.string().required(),
-    email:Joi.string().required(),
-    gst:Joi.string().required(),
-    pan:Joi.string().required(),
-    aboutTheBuilder:Joi.string().required(),
-})
 
 exports.addPropertyDetails = Joi.object().keys({
     isRera: Joi.string().required(),

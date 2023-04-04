@@ -17,51 +17,7 @@ let S3 = require("../helpers/s3/index")({
     bucket: "nestohub",
   },
 });
-exports.addOnBoarding = async (payloadData, res) => {
-  const pararms = payloadData.body;
-  if (payloadData && payloadData.files && payloadData.files.images) {
-    let images = Array.isArray(payloadData.files.images)
-      ? payloadData.files.images
-      : compact([payloadData.files.images]);
-    let PromiseArr = [];
-    for (let i = 0; i < images.length; i++) {
-      key = S3.genKeyFromFilename(
-        `propertyImages`,
-        images[i].name || "jpg",
-        []
-      );
-      PromiseArr.push(
-        S3.uploadFile(
-          key,
-          images[i].data,
-          { publicRead: true, mimeType: images[i].mimetype },
-          1
-        )
-      );
-    }
-    pararms.images = await Promise.all(PromiseArr);
-  }
 
-  if (payloadData && payloadData.files && payloadData.files.brochure) {
-    let brochure = payloadData.files.brochure;
-    let key = S3.genKeyFromFilename(
-      `brochure`,
-      brochure.name || "jpg",
-      []
-    );
-    let brochureUrl;
-    brochureUrl = await S3.uploadFile(
-      key,
-      brochure.data,
-      { publicRead: true, mimeType: brochure.mimetype },
-      1
-    );
-    pararms.brochureUrl = brochureUrl;
-  }
-
-  const data = await utils.saveData(Property, pararms);
-  return sendSuccessMessage("Successfully added onBoarding!", data, res);
-};
 
 exports.addPropertyDetails = async (payloadData, res) => {
   const pararms = payloadData.body;
@@ -674,4 +630,9 @@ exports.getPropertiesAnalyticsForIndividualProperty = async (payloadData, res) =
   data.shareCount = 10
   //data.search = 10
   return sendSuccessMessage('successful in getting a builder by id', data, res);
+};
+
+exports.script = async (payloadData, res) => {
+  let data = await utils.getData(Property,{isDeleted:false});
+  return sendSuccessMessage('done', data, res);
 };

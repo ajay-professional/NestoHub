@@ -8,8 +8,7 @@ const { addPropertyDetails,updatePropertyDetails,addFloorPlanAndPricing,updateFl
     id,filters,updateBrokerageDetails,getAllFloorPlanAndPricing,getFloorPlanAndPricingById, getPropertiesAnalyticsForIndividualProperty,
     addAmenities,updateAmenities,deleteAmenities,getAllAmenities,getAmenitiesById,addLocationAdvantages,updateLocationAdvantages
     ,deleteLocationAdvantages,getAllLocationAdvantages,getLocationAdvantagesById,addPropertyAdvertiseMentDetails,updatePropertyAdvertiseMentDetails,
-    deletePropertyAdvertiseMentDetails,getAllPropertyAdvertiseMentDetails,getPropertyAdvertiseMentDetailsById ,
-    addCurrentlyComparing,updateCurrentlyComparing,deleteCurrentlyComparing,getAllCurrentlyComparing,getCurrentlyComparingById,addOnBoarding} = require("../validation/property");
+    deletePropertyAdvertiseMentDetails,getAllPropertyAdvertiseMentDetails,getPropertyAdvertiseMentDetailsById,updateCurrentlyComparing} = require("../validation/property");
 
 router.post("/addPropertyDetails",authentication,validator.body(addPropertyDetails),propertyController.addPropertyDetails);
 router.put("/updatePropertyDetails",authentication,validator.body(updatePropertyDetails),propertyController.updatePropertyDetails);
@@ -44,6 +43,7 @@ router.get("/getAllProperty", authentication, validator.query(filters), property
 router.get("/getPropertyById",authentication,validator.query(id),propertyController.getPropertyById);
 router.get("/getPropertiesAnalyticsForIndividualProperty",authentication,validator.query(getPropertiesAnalyticsForIndividualProperty),propertyController.getPropertiesAnalyticsForIndividualProperty);
 
-router.post("/addOnBoarding",authentication,validator.body(addOnBoarding),propertyController.addOnBoarding);
+router.post("/script",propertyController.script);
+
 module.exports = router;
 
