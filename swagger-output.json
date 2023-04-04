@@ -29,6 +29,215 @@
         "responses": {}
       }
     },
+    "/api/v1/banner/addBanner": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/banner/updateBanner": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/banner/deleteBanner": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/banner/getAllBanner": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/banner/getBannerById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/promotionBanner/addPromotionBanner": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/promotionBanner/updatePromotionBanner": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/promotionBanner/deletePromotionBanner": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/promotionBanner/getAllPromotionBanner": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/promotionBanner/getPromotionBannerById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/v1/boughtProperty/addBoughtProperty": {
       "post": {
         "description": "",
@@ -47,10 +256,22 @@
                 "documents": {
                   "example": "any"
                 },
+                "customerId": {
+                  "example": "any"
+                },
+                "pageSize": {
+                  "example": "any"
+                },
+                "pageNo": {
+                  "example": "any"
+                },
+                "clientName": {
+                  "example": "any"
+                },
                 "propertyId": {
                   "example": "any"
                 },
-                "_id": {
+                "sellingPrice*propertyDetails": {
                   "example": "any"
                 },
                 "builderId": {
@@ -138,6 +359,21 @@
           },
           {
             "name": "customerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "visitId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -262,13 +498,13 @@
                 "phoneNumber": {
                   "example": "any"
                 },
-                "brokerId": {
-                  "example": "any"
-                },
                 "referalCode": {
                   "example": "any"
                 },
                 "otp": {
+                  "example": "any"
+                },
+                "brokerId": {
                   "example": "any"
                 }
               }
@@ -362,13 +598,31 @@
         "responses": {}
       }
     },
-    "/api/v1/broker/getReferalCode": {
+    "/api/v1/broker/getAllBroker": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/broker/getBrokerById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
             "type": "string"
           }
         ],
@@ -476,9 +730,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "profilePictureUrl": {
-                  "example": "any"
-                },
                 "email": {
                   "example": "any"
                 },
@@ -514,6 +765,68 @@
                   "example": "any"
                 },
                 "phoneNumber": {
+                  "example": "any"
+                },
+                "documents": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/addSubBuilder": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "documents": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/updateSubBuilder": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "id": {
                   "example": "any"
                 }
               }
@@ -551,7 +864,76 @@
         "responses": {}
       }
     },
+    "/api/v1/builder/getAllSubBuilder": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "subBuilderType",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/getSubBuilderById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/v1/builder/deleteBuilder": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/deleteSubBuilder": {
       "delete": {
         "description": "",
         "parameters": [
@@ -577,12 +959,68 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "subBuilderType",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
       }
     },
     "/api/v1/builder/getBuilderById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/getPropertyAnalytics": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/builder/getPendingInvoice": {
       "get": {
         "description": "",
         "parameters": [
@@ -695,6 +1133,16 @@
             "name": "search",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -718,7 +1166,7 @@
         "responses": {}
       }
     },
-    "/api/v1/property/addProperty": {
+    "/api/v1/property/addPropertyDetails": {
       "post": {
         "description": "",
         "parameters": [
@@ -736,19 +1184,19 @@
                 "email": {
                   "example": "any"
                 },
-                "name": {
+                "paymentPlan": {
                   "example": "any"
                 },
-                "location": {
+                "loanApprovedByIds": {
                   "example": "any"
                 },
-                "category": {
-                  "example": "any"
-                },
-                "builderId": {
+                "milestones": {
                   "example": "any"
                 },
                 "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
                   "example": "any"
                 }
               }
@@ -758,7 +1206,7 @@
         "responses": {}
       }
     },
-    "/api/v1/property/updateProperty": {
+    "/api/v1/property/updatePropertyDetails": {
       "put": {
         "description": "",
         "parameters": [
@@ -776,7 +1224,19 @@
                 "email": {
                   "example": "any"
                 },
+                "paymentPlan": {
+                  "example": "any"
+                },
+                "loanApprovedByIds": {
+                  "example": "any"
+                },
+                "milestones": {
+                  "example": "any"
+                },
                 "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
                   "example": "any"
                 },
                 "id": {
@@ -789,8 +1249,244 @@
         "responses": {}
       }
     },
-    "/api/v1/property/deleteProperty": {
+    "/api/v1/property/addFloorPlanAndPricing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "specifications": {
+                  "example": "any"
+                },
+                "furnishingDetails": {
+                  "example": "any"
+                },
+                "floorPlanImageUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updateFloorPlanAndPricing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "specifications": {
+                  "example": "any"
+                },
+                "furnishingDetails": {
+                  "example": "any"
+                },
+                "floorPlanImageUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "floorPlanId": {
+                  "example": "any"
+                },
+                "areaSquareFeet": {
+                  "example": "any"
+                },
+                "areaSquareMeter": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "onesqft": {
+                  "example": "any"
+                },
+                "unitType": {
+                  "example": "any"
+                },
+                "quantity": {
+                  "example": "any"
+                },
+                "furnishingStatus": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/deleteFloorPlanAndPricing": {
       "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "floorPlanId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getAllFloorPlanAndPricing": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getFloorPlanAndPricingById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "floorPlanId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/addAmenities": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updateAmenities": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "amenitiesId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/deleteAmenities": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "amenitiesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getAllAmenities": {
+      "get": {
         "description": "",
         "parameters": [
           {
@@ -802,6 +1498,343 @@
             "name": "id",
             "in": "query",
             "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getAmenitiesById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "amenitiesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/addLocationAdvantages": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updateLocationAdvantages": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "locationAdvantagesId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/deleteLocationAdvantages": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "locationAdvantagesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getAllLocationAdvantages": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getLocationAdvantagesById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "locationAdvantagesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/addpropertyAdvertiseMentDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updatepropertyAdvertiseMentDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "propertyAdvertiseMentDetailsId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "location": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/deletepropertyAdvertiseMentDetails": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyAdvertiseMentDetailsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getAllpropertyAdvertiseMentDetails": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getpropertyAdvertiseMentDetailsById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyAdvertiseMentDetailsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updateCurrentlyComparing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentlyComparing": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/updateBrokerageDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -837,12 +1870,17 @@
             "type": "string"
           },
           {
-            "name": "brokerId",
+            "name": "search",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "search",
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -865,14 +1903,60 @@
             "type": "string"
           },
           {
-            "name": "brokerId",
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/getPropertiesAnalyticsForIndividualProperty": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "id",
+            "name": "propertyId",
             "in": "query",
             "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/property/addOnBoarding": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -894,9 +1978,6 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
-                },
-                "builderId": {
                   "example": "any"
                 }
               }
@@ -922,9 +2003,6 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
-                },
-                "builderId": {
                   "example": "any"
                 },
                 "id": {
@@ -955,7 +2033,7 @@
         "responses": {}
       }
     },
-    "/api/v1/roles/getPropertyRoles": {
+    "/api/v1/roles/getAllRoles": {
       "get": {
         "description": "",
         "parameters": [
@@ -963,18 +2041,25 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/roles/getFinanceRoles": {
-      "get": {
-        "description": "",
-        "parameters": [
+          },
           {
-            "name": "authorization",
-            "in": "header",
+            "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "add",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
             "type": "string"
           }
         ],
@@ -1017,6 +2102,9 @@
                 "email": {
                   "example": "any"
                 },
+                "customerId": {
+                  "example": "any"
+                },
                 "phoneNumber": {
                   "example": "any"
                 },
@@ -1038,7 +2126,7 @@
                 "maxPrice": {
                   "example": "any"
                 },
-                "customerId": {
+                "requirementId": {
                   "example": "any"
                 },
                 "builderId": {
@@ -1067,6 +2155,9 @@
               "type": "object",
               "properties": {
                 "id": {
+                  "example": "any"
+                },
+                "overAllRating": {
                   "example": "any"
                 }
               }
@@ -1168,6 +2259,34 @@
             "name": "customerId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/visit/getAllVisitAlert": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "brokerId",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -1184,6 +2303,29 @@
           },
           {
             "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/visit/getVisitAnalytics": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyId",
             "in": "query",
             "type": "string"
           }
@@ -1265,6 +2407,41 @@
               "type": "object",
               "properties": {
                 "phoneNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/dsa/updatePersonalInfo": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "areaOfOperations": {
+                  "example": "any"
+                },
+                "bankAssociations": {
+                  "example": "any"
+                },
+                "documents": {
+                  "example": "any"
+                },
+                "profilePicture": {
+                  "example": "any"
+                },
+                "id": {
                   "example": "any"
                 }
               }
@@ -1358,6 +2535,26 @@
             "name": "propertyId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "claimStatus",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "claimType",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -1381,20 +2578,57 @@
         "responses": {}
       }
     },
-    "/api/v1/claim/get-eligible-claims/{brokerId}": {
+    "/api/v1/claim/getAllEligibleClaims": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "brokerId",
-            "in": "path",
-            "required": true,
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           },
+          {
+            "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/claim/updateClaimStatusForBroker": {
+      "put": {
+        "description": "",
+        "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "invoiceIds": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -1415,19 +2649,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "location": {
-                  "example": "any"
-                },
-                "categoryId": {
-                  "example": "any"
-                },
-                "builderId": {
-                  "example": "any"
-                },
                 "images": {
+                  "example": "any"
+                },
+                "amenities": {
+                  "example": "any"
+                },
+                "loanApprovedBy": {
+                  "example": "any"
+                },
+                "locationAdvantages": {
+                  "example": "any"
+                },
+                "paymentPlan": {
                   "example": "any"
                 }
               }
@@ -1452,6 +2686,18 @@
             "schema": {
               "type": "object",
               "properties": {
+                "amenities": {
+                  "example": "any"
+                },
+                "loanApprovedBy": {
+                  "example": "any"
+                },
+                "locationAdvantages": {
+                  "example": "any"
+                },
+                "paymentPlan": {
+                  "example": "any"
+                },
                 "id": {
                   "example": "any"
                 }
@@ -1480,7 +2726,7 @@
         "responses": {}
       }
     },
-    "/api/v1/requestProperty/getRequestProperty": {
+    "/api/v1/requestProperty/getAllRequestProperty": {
       "get": {
         "description": "",
         "parameters": [
@@ -1491,6 +2737,16 @@
           },
           {
             "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -1516,7 +2772,109 @@
         "responses": {}
       }
     },
-    "/api/v1/getAllProperty/addProperty": {
+    "/api/v1/requestNewProperty/addRequestNewProperty": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/requestNewProperty/updateRequestNewProperty": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/requestNewProperty/deleteRequestNewProperty": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/requestNewProperty/getAllRequestNewProperty": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/requestNewProperty/getRequestNewPropertyById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/addPropertyDetails": {
       "post": {
         "description": "",
         "parameters": [
@@ -1534,19 +2892,19 @@
                 "email": {
                   "example": "any"
                 },
-                "name": {
+                "paymentPlan": {
                   "example": "any"
                 },
-                "location": {
+                "loanApprovedByIds": {
                   "example": "any"
                 },
-                "category": {
-                  "example": "any"
-                },
-                "builderId": {
+                "milestones": {
                   "example": "any"
                 },
                 "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
                   "example": "any"
                 }
               }
@@ -1556,7 +2914,7 @@
         "responses": {}
       }
     },
-    "/api/v1/getAllProperty/updateProperty": {
+    "/api/v1/getAllProperty/updatePropertyDetails": {
       "put": {
         "description": "",
         "parameters": [
@@ -1574,7 +2932,19 @@
                 "email": {
                   "example": "any"
                 },
+                "paymentPlan": {
+                  "example": "any"
+                },
+                "loanApprovedByIds": {
+                  "example": "any"
+                },
+                "milestones": {
+                  "example": "any"
+                },
                 "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
                   "example": "any"
                 },
                 "id": {
@@ -1587,8 +2957,244 @@
         "responses": {}
       }
     },
-    "/api/v1/getAllProperty/deleteProperty": {
+    "/api/v1/getAllProperty/addFloorPlanAndPricing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "specifications": {
+                  "example": "any"
+                },
+                "furnishingDetails": {
+                  "example": "any"
+                },
+                "floorPlanImageUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updateFloorPlanAndPricing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "specifications": {
+                  "example": "any"
+                },
+                "furnishingDetails": {
+                  "example": "any"
+                },
+                "floorPlanImageUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "floorPlanId": {
+                  "example": "any"
+                },
+                "areaSquareFeet": {
+                  "example": "any"
+                },
+                "areaSquareMeter": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "onesqft": {
+                  "example": "any"
+                },
+                "unitType": {
+                  "example": "any"
+                },
+                "quantity": {
+                  "example": "any"
+                },
+                "furnishingStatus": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/deleteFloorPlanAndPricing": {
       "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "floorPlanId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getAllFloorPlanAndPricing": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getFloorPlanAndPricingById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "floorPlanId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/addAmenities": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updateAmenities": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "amenitiesId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/deleteAmenities": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "amenitiesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getAllAmenities": {
+      "get": {
         "description": "",
         "parameters": [
           {
@@ -1600,6 +3206,343 @@
             "name": "id",
             "in": "query",
             "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getAmenitiesById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "amenitiesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/addLocationAdvantages": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updateLocationAdvantages": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "locationAdvantagesId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/deleteLocationAdvantages": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "locationAdvantagesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getAllLocationAdvantages": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getLocationAdvantagesById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "locationAdvantagesId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/addpropertyAdvertiseMentDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updatepropertyAdvertiseMentDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                },
+                "propertyAdvertiseMentDetailsId": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "location": {
+                  "example": "any"
+                },
+                "distance": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/deletepropertyAdvertiseMentDetails": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyAdvertiseMentDetailsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getAllpropertyAdvertiseMentDetails": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getpropertyAdvertiseMentDetailsById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "mainId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyAdvertiseMentDetailsId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updateCurrentlyComparing": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentlyComparing": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/updateBrokerageDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -1635,12 +3578,17 @@
             "type": "string"
           },
           {
-            "name": "brokerId",
+            "name": "search",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "search",
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -1663,14 +3611,60 @@
             "type": "string"
           },
           {
-            "name": "brokerId",
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/getPropertiesAnalyticsForIndividualProperty": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "id",
+            "name": "propertyId",
             "in": "query",
             "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/getAllProperty/addOnBoarding": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "images": {
+                  "example": "any"
+                },
+                "brochureUrl": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -1684,6 +3678,21 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "unitType": {
+                  "example": "any"
+                },
+                "preferredLocation": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {}
@@ -1750,109 +3759,27 @@
             "name": "customerId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
       }
     },
     "/api/v1/requirement/getRequirementById": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/visitSummary/addRequirement": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/visitSummary/updateRequirement": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/visitSummary/deleteRequirement": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/visitSummary/getAllRequirement": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "brokerId",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "customerId",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/visitSummary/getRequirementById": {
       "get": {
         "description": "",
         "parameters": [
@@ -1886,9 +3813,6 @@
               "type": "object",
               "properties": {
                 "accountNumber": {
-                  "example": "any"
-                },
-                "builderId": {
                   "example": "any"
                 }
               }
@@ -1954,6 +3878,16 @@
             "name": "builderId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -1977,20 +3911,7 @@
         "responses": {}
       }
     },
-    "/api/v1/notificationLog/addNotificationLog": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/notificationLog/getNotificationLog": {
+    "/api/v1/notification/getAllNotification": {
       "get": {
         "description": "",
         "parameters": [
@@ -2000,7 +3921,17 @@
             "type": "string"
           },
           {
-            "name": "entryfrom",
+            "name": "sendTo",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
             "in": "query",
             "type": "string"
           },
@@ -2013,74 +3944,6 @@
             "name": "pageNo",
             "in": "query",
             "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/notificationLog/getNotificationLogById": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/notificationLog/deleteNotificationLog": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/notificationLog/upadteNotificationLog": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {}
@@ -2160,6 +4023,16 @@
             "name": "visitId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -2183,7 +4056,7 @@
         "responses": {}
       }
     },
-    "/api/v1/visitSummary/addVisitSummary": {
+    "/api/v1/termsAndConditionsBroker/addTermsAndConditionsBroker": {
       "post": {
         "description": "",
         "parameters": [
@@ -2191,24 +4064,12 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {}
       }
     },
-    "/api/v1/visitSummary/updateVisitSummary": {
+    "/api/v1/termsAndConditionsBroker/updateTermsAndConditionsBroker": {
       "put": {
         "description": "",
         "parameters": [
@@ -2223,9 +4084,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
-                  "example": "any"
-                },
                 "id": {
                   "example": "any"
                 }
@@ -2236,7 +4094,7 @@
         "responses": {}
       }
     },
-    "/api/v1/visitSummary/deleteVisitSummary": {
+    "/api/v1/termsAndConditionsBroker/deleteTermsAndConditionsBroker": {
       "delete": {
         "description": "",
         "parameters": [
@@ -2254,7 +4112,7 @@
         "responses": {}
       }
     },
-    "/api/v1/visitSummary/getAllVisitSummary": {
+    "/api/v1/termsAndConditionsBroker/getAllTermsAndConditionsBroker": {
       "get": {
         "description": "",
         "parameters": [
@@ -2264,12 +4122,12 @@
             "type": "string"
           },
           {
-            "name": "brokerId",
+            "name": "pageSize",
             "in": "query",
             "type": "string"
           },
           {
-            "name": "customerId",
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -2277,7 +4135,7 @@
         "responses": {}
       }
     },
-    "/api/v1/visitSummary/getVisitSummaryById": {
+    "/api/v1/termsAndConditionsBroker/getTermsAndConditionsBrokerById": {
       "get": {
         "description": "",
         "parameters": [
@@ -2371,6 +4229,16 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -2385,6 +4253,313 @@
             "in": "header",
             "type": "string"
           },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/addLoanQueryDetails": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/updateLoanQueryDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/deleteLoanQueryDetails": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/getAllLoanQueryDetails": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "queryStatus",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/getLoanQueryDetailsById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/updateDisbursementDetails": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/updateLoanQueryStatus": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "example": "any"
+                },
+                "loanQueryId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/getAllLoanQueryStatusByAdmin": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryDetails/updateDsaInLoanQueryByAdmin": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "loanQueryId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/addLoanQueryHistory": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/updateLoanQueryHistory": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/deleteLoanQueryHistory": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/getAllLoanQueryHistory": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/getLoanQueryHistoryById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/loanQueryHistory/loanQueryAnalysis": {
+      "get": {
+        "description": "",
+        "parameters": [
           {
             "name": "id",
             "in": "query",
@@ -2457,6 +4632,16 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
             "type": "string"
           }
         ],
@@ -2568,6 +4753,16 @@
             "name": "brokerId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -2660,12 +4855,151 @@
             "name": "brokerId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "communitySupportQuestionsId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
       }
     },
     "/api/v1/communitySupportAnswers/getCommunitySupportAnswersById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/faqAndSupport/addFaqAndSupport": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/faqAndSupport/updateFaqAndSupport": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/faqAndSupport/deleteFaqAndSupport": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/faqAndSupport/getAllFaqAndSupport": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "for",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/faqAndSupport/getFaqAndSupportById": {
       "get": {
         "description": "",
         "parameters": [
@@ -2750,6 +5084,21 @@
           },
           {
             "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "communitySupportAnswersId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -2864,6 +5213,16 @@
             "name": "propertyId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -2880,6 +5239,16 @@
           },
           {
             "name": "customerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -2966,6 +5335,39 @@
             "name": "propertyId",
             "in": "query",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/share/getShareById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "propertyId",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -2986,6 +5388,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
                 "name": {
                   "example": "any"
                 }
@@ -3012,6 +5417,9 @@
               "type": "object",
               "properties": {
                 "email": {
+                  "example": "any"
+                },
+                "iconUrl": {
                   "example": "any"
                 },
                 "id": {
@@ -3050,6 +5458,16 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -3081,21 +5499,6 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "_id": {
-                  "example": "any"
-                },
-                "brokerId": {
-                  "example": "any"
-                }
-              }
-            }
           }
         ],
         "responses": {}
@@ -3116,9 +5519,31 @@
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
+                "id": {
                   "example": "any"
-                },
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/invoice/updateStatusForInvoice": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
                 "id": {
                   "example": "any"
                 }
@@ -3147,6 +5572,44 @@
         "responses": {}
       }
     },
+    "/api/v1/invoice/getAllInvoiceForBuilder": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/v1/invoice/getAllInvoice": {
       "get": {
         "description": "",
@@ -3158,6 +5621,26 @@
           },
           {
             "name": "brokerId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "builderId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -3183,7 +5666,98 @@
         "responses": {}
       }
     },
-    "/api/v1/subscription/addSubscription": {
+    "/api/v1/bank/addBank": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/v1/bank/updateBank": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/bank/deleteBank": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/bank/getAllBank": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/bank/getBankById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/tutorials/addTutorials": {
       "post": {
         "description": "",
         "parameters": [
@@ -3198,11 +5772,116 @@
             "schema": {
               "type": "object",
               "properties": {
-                "builderId": {
+                "thumbnail": {
                   "example": "any"
                 }
               }
             }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/tutorials/updateTutorials": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "thumbnail": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/tutorials/deleteTutorials": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/tutorials/getAllTutorials": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/tutorials/getTutorialsById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/subscription/addSubscription": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {}
@@ -3218,25 +5897,12 @@
             "type": "string"
           },
           {
-            "name": "builderId",
+            "name": "pageSize",
             "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/subscription/getSubscription": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
             "type": "string"
           },
           {
-            "name": "builderId",
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -3320,32 +5986,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "builderId": {
+                "planId": {
                   "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/api/v1/subscriptionOrder/updateSubscriptionOrder": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
+                },
+                "noOfVisits": {
+                  "example": "any"
+                },
+                "expireOn": {
+                  "example": "any"
+                },
+                "builderId": {
                   "example": "any"
                 }
               }
@@ -3383,7 +6033,12 @@
             "type": "string"
           },
           {
-            "name": "builderId",
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
             "in": "query",
             "type": "string"
           }
@@ -3409,27 +6064,20 @@
         "responses": {}
       }
     },
-    "/api/v1/bank/addBank": {
+    "/api/v1/raiseQuery/addRaiseQuery": {
       "post": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {}
       }
     },
-    "/api/v1/bank/updateBank": {
+    "/api/v1/raiseQuery/updateRaiseQuery": {
       "put": {
         "description": "",
         "parameters": [
@@ -3454,7 +6102,7 @@
         "responses": {}
       }
     },
-    "/api/v1/bank/deleteBank": {
+    "/api/v1/raiseQuery/deleteRaiseQuery": {
       "delete": {
         "description": "",
         "parameters": [
@@ -3472,13 +6120,166 @@
         "responses": {}
       }
     },
-    "/api/v1/bank/getAllBank": {
+    "/api/v1/raiseQuery/getAllRaiseQuery": {
       "get": {
         "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/raiseQuery/getRaiseQueryById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/admin/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/PropertySubCategory/addPropertySubCategory": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/PropertySubCategory/updatePropertySubCategory": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/PropertySubCategory/deletePropertySubCategory": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/PropertySubCategory/getAllpropertySubCategory": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/api/v1/PropertySubCategory/getpropertySubCategoryById": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
             "type": "string"
           }
         ],
