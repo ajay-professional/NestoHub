@@ -54,17 +54,17 @@ app.get("/", (req, res) => {
   
 app.use('/api/v1/', routes);
 
-// const swaggerAutogen = require("swagger-autogen")();
-// const outputFile = "./swagger-output.json";
-// const endpointsFiles = ["./app.js"];
-// const doc = {
-//     info: {
-//       title: 'My API',
-//       description: 'Description',
-//     },
-//     host: "13.234.136.165:3000",
-//     schemes: ['http'],
-//   };
+const swaggerAutogen = require("swagger-autogen")();
+const outputFile = "./swagger-output.json";
+const endpointsFiles = ["./app.js"];
+const doc = {
+    info: {
+      title: 'My API',
+      description: 'Description',
+    },
+    host: "apis.nestohub.in",
+    schemes: ['http'],
+  };
   
 // swaggerAutogen(outputFile, endpointsFiles, doc);
 const swaggerDocument=require('./swagger-output.json');

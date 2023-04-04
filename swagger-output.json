@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "13.234.136.165:3000",
+  "host": "apis.nestohub.in",
   "basePath": "/",
   "schemes": [
     "http"
