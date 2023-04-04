@@ -16,7 +16,7 @@ router.put("/updatePropertyDetails",authentication,validator.body(updateProperty
 router.put("/addFloorPlanAndPricing",authentication,validator.body(addFloorPlanAndPricing),propertyController.addFloorPlanAndPricing);
 router.put("/updateFloorPlanAndPricing",authentication,validator.body(updateFloorPlanAndPricing),propertyController.updateFloorPlanAndPricing);
 router.delete("/deleteFloorPlanAndPricing",authentication,validator.query(deleteFloorPlanAndPricing),propertyController.deleteFloorPlanAndPricing);
-router.get("/getAllFloorPlanAndPricing",authentication,validator.body(getAllFloorPlanAndPricing),propertyController.getAllFloorPlanAndPricing);
+router.post("/getAllFloorPlanAndPricing",authentication,validator.body(getAllFloorPlanAndPricing),propertyController.getAllFloorPlanAndPricing);
 router.get("/getFloorPlanAndPricingById",authentication,validator.query(getFloorPlanAndPricingById),propertyController.getFloorPlanAndPricingById);
 router.put("/addAmenities",authentication,validator.body(addAmenities),propertyController.addAmenities);
 router.put("/updateAmenities",authentication,validator.body(updateAmenities),propertyController.updateAmenities);
