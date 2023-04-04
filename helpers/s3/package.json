@@ -1,0 +1,25 @@
+{
+  "name": "remitr-s3",
+  "version": "1.0.0",
+  "description": "module for s3 upload, getting signed url",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "s3",
+    "upload",
+    "signed",
+    "url"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.5.6",
+    "crypto": "0.0.3",
+    "fs": "0.0.1-security",
+    "q": "^1.4.1",
+    "underscore": "^1.8.3"
+  }
+}
