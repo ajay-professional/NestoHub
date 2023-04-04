@@ -8,7 +8,7 @@
   "host": "apis.nestohub.in",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {

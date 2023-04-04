@@ -63,7 +63,7 @@ const doc = {
       description: 'Description',
     },
     host: "apis.nestohub.in",
-    schemes: ['http'],
+    schemes: ['https'],
   };
   
  swaggerAutogen(outputFile, endpointsFiles, doc);
