@@ -4,6 +4,7 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const privateKey = env.JWTOKEN;
+
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
 const { Builder, RequestNewProperty , Property, BoughtProperty, Visit, Invoice} = require('../models');
 let S3 = require('../helpers/s3/index')({

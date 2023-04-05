@@ -5,6 +5,8 @@ const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
 const {  FaqAndSupport  } = require('../models');
 
+
+
 exports.addFaqAndSupport = async (payloadData, res) => {
     const pararms = payloadData.body;
     

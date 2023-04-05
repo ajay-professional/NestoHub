@@ -4,6 +4,8 @@ const moment = require('moment');
 const env = require('../config');
 
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
+
+
 const { BrokerEarnings  } = require('../models');
 
 exports.addBrokerEarnings = async (payloadData, res) => {
