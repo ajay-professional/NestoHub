@@ -14,6 +14,7 @@ const claimSchema = new Schema({
     claimStatus:{ type: String, default:"pending" },
     date:{ type: String, default: null },
     claimRejectReason:{ type: String, default: null },
+    visitId:{ type: Schema.ObjectId, ref: 'visit', default: null },
     propertyId:{ type: Schema.ObjectId, ref: 'property', default: null },
     boughtPropertyId:{ type: Schema.ObjectId, ref: 'bought', default: null },
     builderId: { type: Schema.ObjectId, ref: 'builder', default: null },
