@@ -221,7 +221,7 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
   location:propertyClaims[i].propertyId.location,
   builderName:propertyClaims[i].builderId.name,
   brokerageValue:propertyClaims[i].propertyId.brokerageValue,
-  customerName:propertyClaims[i].customerId.name,
+  customerName:propertyClaims[i].customerId.clientName,
   date:propertyClaims[i].createdAt,
   claimType:"brokerage"
  })
@@ -243,7 +243,7 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
      location:visitClaims[i].propertyId.location,
      builderName:visitClaims[i].builderId.name,
      brokerageValue:visitClaims[i].propertyId.visitBrokerege,
-     customerName:visitClaims[i].customerId.name,
+     customerName:visitClaims[i].customerId.clientName,
      date:visitClaims[i].createdAt,
      claimType:"visit"
     })
