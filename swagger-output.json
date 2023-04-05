@@ -2161,6 +2161,34 @@
         "responses": {}
       }
     },
+    "/api/v1/visit/addVisitComment": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "iconUrl": {
+                  "example": "any"
+                },
+                "mainId": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/api/v1/visit/verifyOtp": {
       "post": {
         "description": "",

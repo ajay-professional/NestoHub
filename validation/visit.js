@@ -36,6 +36,12 @@ exports.visitSummary = Joi.object().keys({
     writeReview:Joi.string().optional(),
 });
 
+exports.visitComment = Joi.object().keys({
+    id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
+    date:Joi.string().required(), 
+    comment:Joi.string().optional()
+});
+
 exports.sendOtp = Joi.object().keys({
     visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     builderId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),

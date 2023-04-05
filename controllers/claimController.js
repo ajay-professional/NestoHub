@@ -12,7 +12,7 @@ let S3 = require("../helpers/s3/index")({
   },
 });
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { Claim, BoughtProperty, Invoice, Notification } = require('../models');
+const { Claim, BoughtProperty, Invoice, Notification , Visit } = require('../models');
 
 exports.addClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
@@ -53,6 +53,15 @@ exports.updateClaim = async (payloadData, res) => {
   const data = await utils.updateData(Claim, { _id: pararms.id }, pararms);
   return sendSuccessMessage('Claim details successfully updated', data, res);
 };
+exports.updateClaimStatusForAdmin = async (payloadData, res) => {
+  const pararms = payloadData.body;
+  if(pararms.claimStatus=="paid"){
+    pararms.isVisitClaimed = true
+  }
+  const data = await utils.updateData(Claim, { _id: pararms.id }, pararms);
+  return sendSuccessMessage('Claim details successfully updated', data, res);
+};
+
 
 exports.updateClaimStatusForBroker = async (payloadData, res) => {
   const pararms = payloadData.body;
@@ -192,7 +201,7 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
   const pararms = payloadData.query;
   let data = [];
   const query =[];
-  const populates = ["brokerId", "propertyId", "builderId", "customerId", "visitId"];
+  const populates = ["brokerId", "propertyId", "builderId", "customerId"];
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
   }
@@ -202,19 +211,43 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
     pageSize: pararms.pageSize,
     pageNo: pararms.pageNo,
     populates,
-    fields:["-visitClaimed"]
   });
 
-  let visitClaims = await utils.getData(BoughtProperty, {
-    query: {visitClaimed:false,isDeleted:false},
+  for(let i=0;i<propertyClaims.length;i++){
+ data.push({
+  boughtPropertyId:propertyClaims[i]._id,
+  images:propertyClaims[i].propertyId.images,
+  propetyName:propertyClaims[i].propertyId.name,
+  location:propertyClaims[i].propertyId.location,
+  builderName:propertyClaims[i].builderId.name,
+  brokerageValue:propertyClaims[i].propertyId.brokerageValue,
+  customerName:propertyClaims[i].customerId.name,
+  date:propertyClaims[i].createdAt,
+  claimType:"brokerage"
+ })
+  }
+
+  let visitClaims = await utils.getData(Visit, {
+    query: {isVisitClaimed:false,visitBrokerege:{$ne:null},isDeleted:false,visitStatus:"completed"},
     sort: { _id: -1 },
     pageSize: pararms.pageSize,
     pageNo: pararms.pageNo,
-    populates,
-    fields:["-isBrokerageClaimed"]
+    populates
   });
 
-  data  = [...propertyClaims,...visitClaims];
+  for(let i=0;i<visitClaims.length;i++){
+    data.push({
+     visitId:visitClaims[i]._id,
+     images:visitClaims[i].propertyId.images,
+     propetyName:visitClaims[i].propertyId.name,
+     location:visitClaims[i].propertyId.location,
+     builderName:visitClaims[i].builderId.name,
+     brokerageValue:visitClaims[i].propertyId.visitBrokerege,
+     customerName:visitClaims[i].customerId.name,
+     date:visitClaims[i].createdAt,
+     claimType:"visit"
+    })
+     }
   return sendSuccessMessage("success", data, res);
 };
 

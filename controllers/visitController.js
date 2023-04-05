@@ -19,14 +19,17 @@ const {
 exports.addVisit = async (payloadData, res) => {
   const pararms = payloadData.body;
   pararms.email = toLower(pararms.email);
-  // const checkCustomer = await utils.getData(Customer, {
-  //   query: {
-  //     phoneNumber: pararms.phoneNumber,
-  //     brokerId: pararms.brokerId,
-  //     isDeleted: false,
-  //   },
-  //   fields: ["_id", "phoneNumber", "brokerId"],
-  // });
+  const checkProperty = await utils.getSingleData(Property, {
+    query: {
+      _id:pararms.propertyId,
+      isDeleted: false,
+    },
+    fields: ["_id", "visitBrokerage"],
+  });
+
+  if(checkProperty && checkProperty.visitBrokerage){
+    pararms.visitBrokerage = checkProperty.visitBrokerage
+  }
   // if (!size(checkCustomer)) {
   //   let data = await utils.saveData(Customer, {
   //     clientName: pararms.clientName,
@@ -144,6 +147,33 @@ exports.visitSummary = async (payloadData, res) => {
   await utils.updateData(Builder, { _id: data.builderId }, { rating: newRat });
 
   return sendSuccessMessage("Visit details successfully updated", data, res);
+};
+exports.visitComment = async (payloadData, res) => {
+  const pararms = payloadData.body;
+  if (payloadData && payloadData.files && payloadData.files.file) {
+    let icon = payloadData.files.icon;
+    let key = S3.genKeyFromFilename(
+      `icon`,
+      icon.name || "jpg",
+      []
+    );
+    let iconUrl;
+    iconUrl = await S3.uploadFile(
+      key,
+      icon.data,
+      { publicRead: true, mimeType: icon.mimetype },
+      1
+    );
+    pararms.iconUrl = iconUrl;
+  }
+  await utils.updateData(Property, { _id: pararms.mainId },
+    {
+      $push: {
+        amenities: pararms
+      }
+    },
+  );
+  return sendSuccessMessage('success', {}, res);
 };
 
 exports.deleteVisit = async (payloadData, res) => {

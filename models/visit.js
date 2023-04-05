@@ -9,6 +9,7 @@ const visitSchema = new Schema({
     commentHistory:[{
         date: { type: String, default: null },
         comment: { type: String, default: null },
+        url:{ type: String, default: null },
     }],
     followUpDate: { type: String, default: null },
     followUpTime: { type: String, default: null },
@@ -32,6 +33,8 @@ const visitSchema = new Schema({
     builderPunctuality:{ type: String, default: null }, 
     builderCleanliness:{ type: String, default: null }, 
     rateTheSatisfaction:{ type: String, default: null },
+    isVisitClaimed:{ type: Boolean, default: false },
+    visitBrokerage: { type: String, default: null },
     writeReview:{ type: String, default: null },
     isDeleted: { type: Boolean, default: false },
 }, {

@@ -5,6 +5,7 @@ exports.addClaim = Joi.object().keys({
     milestoneNumber:Joi.string().required(),
     brokeragePercentage:Joi.string().optional(),
     brokerageAmount:Joi.string().required(),
+    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     boughtPropertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
@@ -22,6 +23,7 @@ exports.updateClaim= Joi.object().keys({
     claimStatus:Joi.string().required(),
     claimRejectReason:Joi.string().required(),
     date:Joi.string().required(),
+    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     boughtPropertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
@@ -36,6 +38,11 @@ exports.id = Joi.object().keys({
 exports.updateClaimStatusForBroker = Joi.object().keys({
     id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     claimStatus: Joi.string().required().valid('submitted')
+});
+
+exports.updateClaimStatusForAdmin= Joi.object().keys({
+    id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
+    claimStatus: Joi.string().required().valid('submitted','approved','recieved','paid','rejected')
 });
 
 
