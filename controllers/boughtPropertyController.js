@@ -183,7 +183,7 @@ exports.getAllBoughtProperty = async (payloadData, res) => {
 exports.getBoughtPropertyById = async (payloadData, res) => {
   const pararms = payloadData.query;
 
-  const populates = ["brokerId"];
+  const populates = ["brokerId", "customerId"];
   const data = await utils.getData(BoughtProperty, {
     query: { _id: pararms.id, isDeleted: false },
     populates,

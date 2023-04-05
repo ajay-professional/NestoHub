@@ -6,7 +6,7 @@ const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
 
 
-const { BrokerEarnings  } = require('../models');
+const { BrokerEarnings, BoughtProperty  } = require('../models');
 
 exports.addBrokerEarnings = async (payloadData, res) => {
     const pararms = payloadData.body;
@@ -26,20 +26,26 @@ exports.deleteBrokerEarnings= async (payloadData, res) => {
 };
 
 exports.getAllBrokerEarnings = async (payloadData, res) => {
+    let nestoEarnings = 0;
+    let outsideEarnings = 0;
+    let result ={};
     let pararms = payloadData.query;
-    let query = { isDeleted: false };
-    const populates = ['brokerId'];
-    let data = await utils.getData(BrokerEarnings, {
+    let query = { brokerId:pararms.brokerId, isDeleted: false };
+    let data = await utils.getData(BoughtProperty, {
         query:query,
         sort:{_id:-1},
-        pageSize:pararms.pageSize,
-        pageNo:pararms.pageNo,
-        populates,
+        populates:['propertyId']
     });
-    const count = await utils.countDocuments(BrokerEarnings, query);
-    data = JSON.parse(JSON.stringify(data));
-    data.forEach(v => { v.totalCount = count });
-    return sendSuccessMessage('success', data, res);
+    for(let i=0;i<data.length;i++){
+        if(data[i].propertyId.brokerageType=='amount'){
+            nestoEarnings  = nestoEarnings + parseInt(data[i].propertyId.brokerageValue);
+        }else{
+            nestoEarnings  = nestoEarnings +parseInt(data[i].propertyId.brokerageValue)*parseInt(data[i].sellingPrice)/100;
+        }
+        outsideEarnings = outsideEarnings +  2*parseInt(data[i].sellingPrice)/100;
+    }
+    result.additionalEarnings=nestoEarnings-outsideEarnings;
+    return sendSuccessMessage('success', result , res);
 };
 
 exports.getBrokerEarningsById = async (payloadData, res) => {
