@@ -2,6 +2,7 @@ const { toLower, size } = require('lodash');
 const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
+
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
 const { BrokerEarnings  } = require('../models');
 
@@ -10,8 +11,6 @@ exports.addBrokerEarnings = async (payloadData, res) => {
     const data = await utils.saveData(BrokerEarnings, pararms);
     return sendSuccessMessage('Successfully added new category', data, res);
 };
-
-
 exports.updateBrokerEarnings = async (payloadData, res) => {
     const pararms = payloadData.body;
     const data = await utils.updateData(BrokerEarnings, { _id: pararms.id }, pararms);
