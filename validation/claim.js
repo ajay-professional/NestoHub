@@ -14,7 +14,7 @@ exports.addClaim = Joi.object().keys({
 
 exports.updateClaim= Joi.object().keys({
     id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    claimType:Joi.string().required(),
+    claimType:Joi.string().required().valid('dsa','property','visit'),
     milestoneNumber:Joi.string().required(),
     brokeragePercentage:Joi.string().required(),
     brokerageAmount:Joi.string().required(),

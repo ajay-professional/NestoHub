@@ -148,32 +148,34 @@ exports.visitSummary = async (payloadData, res) => {
 
   return sendSuccessMessage("Visit details successfully updated", data, res);
 };
+
+
 exports.visitComment = async (payloadData, res) => {
   const pararms = payloadData.body;
   if (payloadData && payloadData.files && payloadData.files.file) {
-    let icon = payloadData.files.icon;
+    let file = payloadData.files.file;
     let key = S3.genKeyFromFilename(
-      `icon`,
-      icon.name || "jpg",
+      `file`,
+      file.name || "jpg",
       []
     );
-    let iconUrl;
-    iconUrl = await S3.uploadFile(
+    let fileUrl;
+    fileUrl = await S3.uploadFile(
       key,
-      icon.data,
-      { publicRead: true, mimeType: icon.mimetype },
+      file.data,
+      { publicRead: true, mimeType: file.mimetype },
       1
     );
-    pararms.iconUrl = iconUrl;
+    pararms.url = fileUrl;
   }
-  await utils.updateData(Property, { _id: pararms.mainId },
+  let data = await utils.updateData(Visit, { _id: pararms.id },
     {
       $push: {
-        amenities: pararms
+        commentHistory: pararms
       }
     },
   );
-  return sendSuccessMessage('success', {}, res);
+  return sendSuccessMessage('success', data, res);
 };
 
 exports.deleteVisit = async (payloadData, res) => {
@@ -182,6 +184,22 @@ exports.deleteVisit = async (payloadData, res) => {
   await utils.updateData(Visit, { _id: pararms.id }, { isDeleted: true });
   return sendSuccessMessage("visit deleted successfully!", {}, res);
 };
+exports.getDisabledTime = async (payloadData, res) => {
+  let pararms = payloadData.query;
+  let timeArr=[];
+  let query = { brokerId: pararms.brokerId, isDeleted: false ,
+                  $or:[
+                    { date:pararms.date},
+                    { followUpDate:pararms.date}
+                  ]};
+  let data = await utils.getData(Visit, {
+    query: query,
+    fields:['chooseSlot','followUpTime']
+  });
+  
+  return sendSuccessMessage("successful in getting all visit", data, res);
+};
+
 exports.getAllVisit = async (payloadData, res) => {
   let pararms = payloadData.query;
   const populates = ["brokerId", "builderId", "customerId"];
