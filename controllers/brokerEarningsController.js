@@ -228,7 +228,7 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj1.visitEarnings = visitEarnings && visitEarnings[0] && visitEarnings[0].total ? visitEarnings[0].total : 0 ;
     obj1.propertyEarnings = propertyEarnings && propertyEarnings[0] && propertyEarnings[0].total ? propertyEarnings[0].total : 0 ;
     obj1.loanEarnings = loanEarnings && loanEarnings[0] && loanEarnings[0].total ? loanEarnings[0].total : 0 ;
-    obj1.totalEarnings =  obj1.visitEarnings + obj1.propertyEarnings +  obj1.loanEarnings;
+    obj1.total =  obj1.visitEarnings + obj1.propertyEarnings +  obj1.loanEarnings;
     result.earnings.push(obj1);
     let claimRaised = await utils.aggregateData(Claim, [
       { $match: { claimStatus: "submitted", brokerId:mongoose.Types.ObjectId(pararms.brokerId)} },
@@ -268,7 +268,7 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj2.claimRaised = claimRaised && claimRaised[0] && claimRaised[0].total ? claimRaised[0].total : 0 ;
     obj2.claimApproved = claimApproved && claimApproved[0] && claimApproved[0].total ? claimApproved[0].total : 0 ;
     obj2.paymentReceived = paymentReceived && paymentReceived[0] && paymentReceived[0].total ? paymentReceived[0].total : 0 ;
-    obj2.upcomingEarnings =  obj2.claimRaised +  obj2.claimApproved +  obj2.paymentReceived;
+    obj2.total =  obj2.claimRaised +  obj2.claimApproved +  obj2.paymentReceived;
     result.earnings.push(obj2);
     let obj3 = {};
     obj3.title = "visitDetails";
@@ -283,7 +283,7 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj3.followUpVisit = followUpVisit;
     obj3.negotiationVisit = negotiationVisit;
     obj3.boughtVisit = boughtVisit;
-    obj3.visitDetails = visitDetails;
+    obj3.total = visitDetails;
     result.earnings.push(obj3);
     let obj4 = {};
     obj4.title  ="loanQuery"
@@ -296,7 +296,7 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj4.assignedQuery = assignedQuery;
     obj4.maturedQuery = maturedQuery;
     obj4.notmaturedQuery = notmaturedQuery;
-    obj4.loanQuery = loanQuery;
+    obj4.total = loanQuery;
     result.earnings.push(obj4);
     let obj5 = {};
     obj5.title = "claimApprovalRate";
@@ -312,14 +312,14 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj5.claimApprovalRate = claimApprovalRate.toFixed(2);
     obj5.visitClaimRate = visitClaimRate.toFixed(2);
     obj5.propertyClaimRate = propertyClaimRate.toFixed(2);
-    obj5.loanClaimRate = loanClaimRate.toFixed(2);
+    obj5.total = loanClaimRate.toFixed(2);
     result.earnings.push(obj5);
     let totalRefers = "0";
     let totalReferralEarnings = "0";
     let obj6 = {};
     obj6.title = "totalReferralEarnings"
     obj6.totalReferralEarnings = totalReferralEarnings;
-    obj6.totalRefers = totalRefers;
+    obj6.total = totalRefers;
     result.earnings.push(obj6);
   return sendSuccessMessage('success', result, res);
 };
