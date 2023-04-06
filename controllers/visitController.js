@@ -185,19 +185,40 @@ exports.deleteVisit = async (payloadData, res) => {
   return sendSuccessMessage("visit deleted successfully!", {}, res);
 };
 exports.getDisabledTime = async (payloadData, res) => {
-  let pararms = payloadData.query;
-  let timeArr=[];
-  let query = { brokerId: pararms.brokerId, isDeleted: false ,
-                  $or:[
-                    { date:pararms.date},
-                    { followUpDate:pararms.date}
-                  ]};
-  let data = await utils.getData(Visit, {
-    query: query,
-    fields:['chooseSlot','followUpTime']
-  });
+    const { query: { brokerId, date } } = payloadData;
   
-  return sendSuccessMessage("successful in getting all visit", data, res);
+    const query = {
+      brokerId,
+      isDeleted: false,
+      $or: [{ date }, { followUpDate: date }]
+    };
+  
+    const [chooseSlots, followUpTimes] = await Promise.all([
+      Visit.distinct('chooseSlot', query),
+      Visit.distinct('followUpTime', query)
+    ]);
+  
+    const timeArr = [...chooseSlots, ...followUpTimes];
+  
+    return sendSuccessMessage("successful in getting all visit", [...new Set(timeArr)], res);
+  
+  // let pararms = payloadData.query;
+  // let timeArr=[];
+  // let query = { brokerId: pararms.brokerId, isDeleted: false ,
+  //                 $or:[
+  //                   { date:pararms.date},
+  //                   { followUpDate:pararms.date}
+  //                 ]};
+  // let data = await utils.getData(Visit, {
+  //   query: query,
+  //   fields:['chooseSlot','followUpTime']
+  // });
+  // for(let i=0;i<data.length;i++){
+  //   timeArr.push(data[i].followUpTime);
+  //   timeArr.push(data[i].chooseSlot);
+  // }
+  
+  // return sendSuccessMessage("successful in getting all visit", timeArr, res);
 };
 
 exports.getAllVisit = async (payloadData, res) => {
