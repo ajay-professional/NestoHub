@@ -9,6 +9,7 @@ exports.addInvoice = async (payloadData, res) => {
 
     const pararms = payloadData.body;
     const data = await utils.saveData(Invoice, pararms);
+    pararms.paymentDate = new Date().toString();
     return sendSuccessMessage('Successfully added new invoice', data, res);
 };
 
@@ -57,6 +58,17 @@ exports.getAllInvoice = async (payloadData, res) => {
     }
     if (pararms.status) {
         query.status = pararms.status
+    }
+    if (pararms.paidTo) {
+        query.paidTo = pararms.paidTo
+    }
+    if (pararms.search) {
+        query['$or']=[
+            {invoiceAmount : { $regex: pararms.search, $options: "i" }},
+            {claimId : { $regex: pararms.search, $options: "i" }},
+            {transactionId : { $regex: pararms.search, $options: "i" }},
+            {paymentDate : { $regex: pararms.search, $options: "i" }},
+        ];
     }
     let data = await utils.getData(Invoice, {
         query: query,

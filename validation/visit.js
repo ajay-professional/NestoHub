@@ -59,6 +59,7 @@ exports.id = Joi.object().keys({
 exports.filters = Joi.object().keys({
     pageSize:Joi.string().optional().default(500),
     pageNo:Joi.string().optional().default(1),
+    search: Joi.string().optional(),
     requirementId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     brokerId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     builderId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),

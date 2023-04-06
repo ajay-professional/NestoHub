@@ -237,9 +237,6 @@ exports.getAllVisit = async (payloadData, res) => {
   if (pararms.customerId) {
     query.customerId = pararms.customerId;
   } 
-  // builderId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
-  // propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
-  // visitStatus:Joi.string().valid('pending', 'completed', 'followup', 'negotiation', 'bought').optional(),
   let data = await utils.getData(Visit, {
     query: query,
     sort: { _id: -1 },
@@ -287,6 +284,14 @@ exports.getAllVisit = async (payloadData, res) => {
   }
   if (pararms.customerId) {
     query.customerId = pararms.customerId;
+  }
+  if (pararms.search) {
+    query['$or']=[
+        {_id : { $regex: pararms.search, $options: "i" }},
+        {propertyName : { $regex: pararms.search, $options: "i" }},
+        {date : { $regex: pararms.search, $options: "i" }},
+        {visitStatus : { $regex: pararms.search, $options: "i" }},
+    ];
   }
   let data = await utils.getData(Visit, {
     query: query,
