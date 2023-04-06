@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
 
 
-const { BrokerEarnings, BoughtProperty,Claim, Visit} = require('../models');
+const { BrokerEarnings, BoughtProperty, Claim, Visit, LoanQueryDetails} = require('../models');
 
 exports.addBrokerEarnings = async (payloadData, res) => {
     const pararms = payloadData.body;
@@ -31,7 +31,9 @@ exports.getAllBrokerEarnings = async (payloadData, res) => {
     let result ={
         totalEarnings:{},
         upcomingEarnings:{},
-        visitDetails:{}
+        visitDetails:{},
+        loanQuery:{},
+        claimApprovalRate:{}
     };
     let pararms = payloadData.query;
     let query = { brokerId:pararms.brokerId, isDeleted: false };
@@ -135,6 +137,29 @@ exports.getAllBrokerEarnings = async (payloadData, res) => {
       result.visitDetails.negotiationVisit = negotiationVisit;
       result.visitDetails.boughtVisit = boughtVisit;
       result.visitDetails.visitDetails = visitDetails;
+      let raisedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "pending", brokerId:pararms.brokerId});
+      let assignedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "assigned", brokerId:pararms.brokerId});
+      let maturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "matured", brokerId:pararms.brokerId});
+      let notmaturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "notmatured", brokerId:pararms.brokerId});
+      let loanQuery = raisedQuery + assignedQuery + maturedQuery + notmaturedQuery;
+      result.loanQuery.raisedQuery = raisedQuery;
+      result.loanQuery.assignedQuery = assignedQuery;
+      result.loanQuery.maturedQuery = maturedQuery;
+      result.loanQuery.notmaturedQuery = notmaturedQuery;
+      result.loanQuery.loanQuery = loanQuery;
+      let totalClaim =  await utils.countDocuments(Claim, {brokerId:pararms.brokerId});
+      let totalPaidClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", brokerId:pararms.brokerId});
+      let totalVisitClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"visit", brokerId:pararms.brokerId});
+      let totalPropertyClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"property", brokerId:pararms.brokerId});
+      let totalLoanClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"dsa", brokerId:pararms.brokerId});
+      let claimApprovalRate = totalPaidClaim*100/totalClaim;
+      let visitClaimRate = totalVisitClaim*100/totalClaim;
+      let propertyClaimRate = totalPropertyClaim*100/totalClaim;
+      let loanClaimRate = totalLoanClaim*100/totalClaim;
+      result.claimApprovalRate.claimApprovalRate = claimApprovalRate.toFixed(2);
+      result.claimApprovalRate.visitClaimRate = visitClaimRate.toFixed(2);
+      result.claimApprovalRate.propertyClaimRate = propertyClaimRate.toFixed(2);
+      result.claimApprovalRate.loanClaimRate = loanClaimRate.toFixed(2);
     return sendSuccessMessage('success', result, res);
 };
 

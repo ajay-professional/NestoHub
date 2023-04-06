@@ -13,7 +13,6 @@ const visitSchema = new Schema({
     }],
     followUpDate: { type: String, default: null },
     followUpTime: { type: String, default: null },
-    date: { type: String, default: null },
     chooseSlot: { type: String, default: null },
     visitStatus: { type: String, default: 'pending' },
     otp: { type: String, default: null },
