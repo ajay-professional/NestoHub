@@ -24,7 +24,7 @@ exports.id = Joi.object().keys({
 exports.getBrokerEarningsByBrokerId = Joi.object().keys({
     brokerId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     type: Joi.string().required().valid('total','upcoming','visit','loan','claim','referral'),
-    search: Joi.string().optional(),
+    search: Joi.string().optional().trim().allow(""),
 });
 
 exports.filters = Joi.object().keys({
