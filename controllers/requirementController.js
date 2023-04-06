@@ -3,7 +3,7 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { Requirement  } = require('../models');
+const { Requirement, Visit } = require('../models');
 
 exports.addRequirement = async (payloadData, res) => {
     const pararms = payloadData.body;
@@ -47,6 +47,10 @@ exports.getAllRequirement = async (payloadData, res) => {
         pageNo:pararms.pageNo,
         populates,
     });
+    data = JSON.parse(JSON.stringify(data));
+    for (let i = 0; i < data.length; i++) {
+        data[i].latestVisit = await utils.getSingleData(Visit, { clientId: data[0].customerId });
+    }
     const count = await utils.countDocuments(Requirement, query);
     data = JSON.parse(JSON.stringify(data));
     data.forEach(v => { v.totalCount = count });

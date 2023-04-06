@@ -72,6 +72,11 @@ exports.getAllVisitAlert = Joi.object().keys({
     brokerId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
 });
 
+exports.getDisabledTime = Joi.object().keys({
+    brokerId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
+    date: Joi.string().required()
+});
+
 exports.getPendingVisitAnalytics = Joi.object().keys({
     builderId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     propertyId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
