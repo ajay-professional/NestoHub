@@ -33,7 +33,8 @@ exports.getAllBrokerEarnings = async (payloadData, res) => {
         upcomingEarnings:{},
         visitDetails:{},
         loanQuery:{},
-        claimApprovalRate:{}
+        claimApprovalRate:{},
+        totalReferralEarnings:{}
     };
     let pararms = payloadData.query;
     let query = { brokerId:pararms.brokerId, isDeleted: false };
@@ -160,6 +161,10 @@ exports.getAllBrokerEarnings = async (payloadData, res) => {
       result.claimApprovalRate.visitClaimRate = visitClaimRate.toFixed(2);
       result.claimApprovalRate.propertyClaimRate = propertyClaimRate.toFixed(2);
       result.claimApprovalRate.loanClaimRate = loanClaimRate.toFixed(2);
+      let totalRefers = "0";
+      let totalReferralEarnings = "0";
+      result.totalReferralEarnings.totalReferralEarnings = totalReferralEarnings;
+      result.totalReferralEarnings.totalRefers = totalRefers;
     return sendSuccessMessage('success', result, res);
 };
 
