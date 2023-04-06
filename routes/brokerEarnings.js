@@ -10,6 +10,7 @@ router.post( '/addBrokerEarnings', authentication, validator.body(addBrokerEarni
 router.put('/updateBrokerEarnings', authentication, validator.body(updateBrokerEarnings),brokerEarningsController.updateBrokerEarnings);
 router.delete('/deleteBrokerEarnings', authentication,validator.query(id),brokerEarningsController.deleteBrokerEarnings);
 router.get('/getAllBrokerEarnings', authentication, validator.query(filters), brokerEarningsController.getAllBrokerEarnings);
+router.get('/getAllBrokerEarningsForMobile', authentication, validator.query(filters), brokerEarningsController.getAllBrokerEarningsForMobile);
 router.get('/getBrokerEarningsById', authentication, validator.query(id), brokerEarningsController.getBrokerEarningsById);
 
 module.exports = router;
