@@ -34,7 +34,7 @@ const loanQueryDetailsSchema = new Schema({
     followupDate: { type: String, default: null },
     followupTime: { type: String, default: null },
     queryStatus: { type: String, default: 'pending' },
-    dsaId: { type: String, default: null },
+    dsaId:  { type: Schema.ObjectId, ref: 'dsa', default: null },
     isDeleted: { type: Boolean, default: false },
 }, {
     timestamps: true,

@@ -30,12 +30,23 @@ exports.deleteLoanQueryDetails = async (payloadData, res) => {
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {
     let pararms = payloadData.query;
+    const populates = ['dsaId']
     let query = { isDeleted: false };
     if (pararms.queryStatus) {
         query.queryStatus = pararms.queryStatus;
     }
+    if (pararms.search) {
+        query['$or']=[
+            {_id : { $regex: pararms.search, $options: "i" }},
+            {companyName : { $regex: pararms.search, $options: "i" }},
+            {createdAt : { $regex: pararms.search, $options: "i" }},
+            {queryStatus : { $regex: pararms.search, $options: "i" }},
+        ];
+    }
+
     const data = await utils.getData(LoanQueryDetails, {
         query: query,
+        populates,
     });
     return sendSuccessMessage('success', data, res);
 };
