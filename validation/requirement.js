@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
 exports.addRequirement = Joi.object().keys({
-    unitType: Joi.string().optional(),
-    preferredLocation:Joi.string().required(),
+    unitType: Joi.array().items(Joi.string().optional()).optional(),
+    preferredLocation:Joi.array().items(Joi.string().required()).optional(),
     minPrice: Joi.string().required(),
     maxPrice: Joi.string().required(),
     customerId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
@@ -11,8 +11,8 @@ exports.addRequirement = Joi.object().keys({
 
 exports.updateRequirement = Joi.object().keys({
     id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    unitType:Joi.string().optional(),
-    preferredLocation:Joi.string().required(),
+    unitType: Joi.array().items(Joi.string().optional()).optional(),
+    preferredLocation:Joi.array().items(Joi.string().required()).optional(),
     minPrice: Joi.string().required(),
     maxPrice: Joi.string().required(),
     customerId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
