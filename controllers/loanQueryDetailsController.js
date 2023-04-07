@@ -3,7 +3,7 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { LoanQueryDetails, Claim, LoanQueryHistory, BoughtProperty } = require('../models');
+const { LoanQueryDetails, Claim, LoanQueryHistory, BoughtProperty,Visit } = require('../models');
 
 exports.addLoanQueryDetails = async (payloadData, res) => {
     const pararms = payloadData.body;
@@ -14,7 +14,7 @@ exports.addLoanQueryDetails = async (payloadData, res) => {
     pararms.propertyId = boughtPropertyData.propertyId;
     pararms.builderId = boughtPropertyData.builderId;
     const data = await utils.saveData(LoanQueryDetails, pararms);
-
+    await utils.updateData(Visit,{_id:pararms.visitId},{loanSupportTaken:true});
     return sendSuccessMessage('Successfully added new category', data, res);
 };
 
