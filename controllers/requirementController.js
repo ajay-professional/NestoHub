@@ -29,7 +29,7 @@ exports.deleteRequirement= async (payloadData, res) => {
 };
 exports.getAllRequirement = async (payloadData, res) => {
     const pararms = payloadData.query;
-    const populates = ['customerId', 'brokerId','propertyType'];
+    const populates = ['customerId', 'brokerId'];
     let query = { isDeleted: false };
     if(pararms.brokerId){
         query.brokerId = pararms.brokerId
@@ -60,7 +60,7 @@ exports.getAllRequirement = async (payloadData, res) => {
 exports.getRequirementById = async (payloadData, res) => {
     const pararms = payloadData.query;
 
-    const populates = ['customerId', 'brokerId','propertyType'];
+    const populates = ['customerId', 'brokerId'];
     const data = await utils.getData(Requirement, {
         query: { _id: pararms.id, isDeleted: false },
         populates,

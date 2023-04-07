@@ -8,7 +8,7 @@ const requirementSchema = new Schema({
     minPrice: { type: String, default: null },
     maxPrice: { type: String, default: null },
     customerId: { type: Schema.ObjectId, ref: 'customer', default: null },
-    propertyType: { type: Schema.ObjectId, ref: 'propertyCategory', default: null },
+    propertyType: { type: String, default: null },
     brokerId: { type: Schema.ObjectId, ref: 'broker', default: null },
     isDeleted: { type: Boolean, default: false },
 }, {
