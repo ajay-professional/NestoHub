@@ -169,7 +169,7 @@ exports.getAllClaim = async (payloadData, res) => {
     }
   let data = await utils.getData(Claim, {
     query: query,
-    sort: { _id: -1 ,milestoneNumber:-1},
+    sort: {milestoneNumber:1},
     pageSize: pararms.pageSize,
     pageNo: pararms.pageNo,
     populates,
