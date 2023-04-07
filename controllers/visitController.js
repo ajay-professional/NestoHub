@@ -92,6 +92,7 @@ exports.addVisit = async (payloadData, res) => {
 
   let data = await utils.saveData(Visit, {
     ...pararms,
+    isDeleted:true,
     otp: otp,
   });
   return sendSuccessMessage("Success", data, res);
@@ -107,7 +108,7 @@ exports.verifyOtp = async (payloadData, res) => {
     fields: ["_id","isOtpVerified"],
   });
   if (checkPhone.length > 0) {
-    let data = await utils.updateData(Visit, { _id: visitId }, { isOtpVerified: true });
+    let data = await utils.updateData(Visit, { _id: visitId }, { isOtpVerified: true , isDeleted:false });
     return sendSuccessMessage("Otp Successfully Verified", data, res);
   } else {
     let data2 = await utils.getData(Visit, {
