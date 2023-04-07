@@ -9,7 +9,7 @@ exports.addLoanQueryDetails = async (payloadData, res) => {
     const pararms = payloadData.body;
     const boughtPropertyData = await utils.getSingleData(BoughtProperty, {
         query: { _id: pararms.boughtPropertyId, isDeleted: false },
-        populates,
+
     });
     pararms.propertyId = boughtPropertyData.propertyId;
     pararms.builderId = boughtPropertyData.builderId;
