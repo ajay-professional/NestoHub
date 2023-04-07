@@ -36,6 +36,7 @@ const boughtPropertyRoots = require("./boughtProperty");
 const raiseQueryRoots = require("./raiseQuery");
 const adminRoots = require("./admin");
 const loanQueryHistoryRoots = require("./loanQueryHistory");
+const cityRoots = require("./city");
 const router = express.Router();
 
 router.use("/banner", bannerRoots);
@@ -77,5 +78,6 @@ router.use("/subscriptionOrder", subscriptionOrderRoots);
 router.use("/raiseQuery", raiseQueryRoots);
 router.use("/admin", adminRoots);
 router.use("/PropertySubCategory", PropertySubCategoryRoots);
-
+router.use("/city", cityRoots);
+cityRoots
 module.exports = router;
