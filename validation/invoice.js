@@ -32,6 +32,8 @@ exports.id = Joi.object().keys({
 exports.filters = Joi.object().keys({
     builderId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an builderId oid').optional(),
     status: Joi.string().optional().valid("pending","settled"),  
+    search: Joi.string().optional(),  
+    paidTo: Joi.string().optional().valid("broker","admin"),  
     claimId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an propertyId oid').optional(),
     brokerId:  Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     dsaId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),

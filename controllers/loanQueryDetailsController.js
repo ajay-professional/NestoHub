@@ -3,18 +3,18 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { LoanQueryDetails, Claim, LoanQueryHistory } = require('../models');
+const { LoanQueryDetails, Claim, LoanQueryHistory, BoughtProperty } = require('../models');
 
 exports.addLoanQueryDetails = async (payloadData, res) => {
     const pararms = payloadData.body;
-    const checkName = await utils.getData(LoanQueryDetails, {
-        query: { name: pararms.name, isDeleted: false },
-        fields: ['_id']
+    const boughtPropertyData = await utils.getSingleData(BoughtProperty, {
+        query: { _id: pararms.boughtPropertyId, isDeleted: false },
+        populates,
     });
-    if (size(checkName)) {
-        return sendErorMessage('LoanQueryDetails already exists!', {}, res);
-    }
+    pararms.propertyId = boughtPropertyData.propertyId;
+    pararms.builderId = boughtPropertyData.builderId;
     const data = await utils.saveData(LoanQueryDetails, pararms);
+
     return sendSuccessMessage('Successfully added new category', data, res);
 };
 
@@ -30,12 +30,23 @@ exports.deleteLoanQueryDetails = async (payloadData, res) => {
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {
     let pararms = payloadData.query;
+    const populates = ['dsaId']
     let query = { isDeleted: false };
     if (pararms.queryStatus) {
         query.queryStatus = pararms.queryStatus;
     }
+    if (pararms.search) {
+        query['$or'] = [
+            { _id: { $regex: pararms.search, $options: "i" } },
+            { companyName: { $regex: pararms.search, $options: "i" } },
+            { createdAt: { $regex: pararms.search, $options: "i" } },
+            { queryStatus: { $regex: pararms.search, $options: "i" } },
+        ];
+    }
+
     const data = await utils.getData(LoanQueryDetails, {
         query: query,
+        populates,
     });
     return sendSuccessMessage('success', data, res);
 };
@@ -59,7 +70,7 @@ exports.updateDisbursementDetails = async (payloadData, res) => {
         boughtPropertyId: data.boughtPropertyId,
         builderId: data.builderId,
         brokerId: data.brokerId,
-        dsaId:data.dsaId
+        dsaId: data.dsaId
     }
     await utils.upsertData(Claim, claimData, claimData)
     return sendSuccessMessage('DisbursementDetails details successfully updated', data, res);
@@ -85,8 +96,8 @@ exports.updateLoanQueryStatus = async (payloadData, res) => {
 };
 
 exports.getAllLoanQueryStatusByAdmin = async (payloadData, res) => {
-  //  let pararms = payloadData.query;
-    let query = { isDeleted: false,dsaId:null };
+    //  let pararms = payloadData.query;
+    let query = { isDeleted: false, dsaId: null };
     const data = await utils.getData(LoanQueryHistory, {
         query: query,
     });
@@ -97,7 +108,7 @@ exports.getAllLoanQueryStatusByAdmin = async (payloadData, res) => {
 exports.updateDsaInLoanQueryByAdmin = async (payloadData, res) => {
     const pararms = payloadData.body;
     const data = await utils.updateData(LoanQueryDetails, { _id: pararms.loanQueryId }, pararms);
-    return sendSuccessMessage('dsa details successfully updated', data, res);  
+    return sendSuccessMessage('dsa details successfully updated', data, res);
 };
 
 
