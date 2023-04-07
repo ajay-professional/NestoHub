@@ -138,35 +138,105 @@ exports.getAllBrokerEarnings = async (payloadData, res) => {
       result.visitDetails.negotiationVisit = negotiationVisit;
       result.visitDetails.boughtVisit = boughtVisit;
       result.visitDetails.visitDetails = visitDetails;
-      let raisedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "pending", brokerId:pararms.brokerId});
-      let assignedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "assigned", brokerId:pararms.brokerId});
-      let maturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "matured", brokerId:pararms.brokerId});
-      let notmaturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "notmatured", brokerId:pararms.brokerId});
-      let loanQuery = raisedQuery + assignedQuery + maturedQuery + notmaturedQuery;
-      result.loanQuery.raisedQuery = raisedQuery;
-      result.loanQuery.assignedQuery = assignedQuery;
-      result.loanQuery.maturedQuery = maturedQuery;
-      result.loanQuery.notmaturedQuery = notmaturedQuery;
-      result.loanQuery.loanQuery = loanQuery;
-      let totalClaim =  await utils.countDocuments(Claim, {brokerId:pararms.brokerId});
-      let totalPaidClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", brokerId:pararms.brokerId});
-      let totalVisitClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"visit", brokerId:pararms.brokerId});
-      let totalPropertyClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"property", brokerId:pararms.brokerId});
-      let totalLoanClaim =  await utils.countDocuments(Claim, {claimStatus:"paid", claimType:"dsa", brokerId:pararms.brokerId});
-      let claimApprovalRate = totalPaidClaim*100/totalClaim;
-      let visitClaimRate = totalVisitClaim*100/totalClaim;
-      let propertyClaimRate = totalPropertyClaim*100/totalClaim;
-      let loanClaimRate = totalLoanClaim*100/totalClaim;
-      result.claimApprovalRate.claimApprovalRate = claimApprovalRate.toFixed(2);
-      result.claimApprovalRate.visitClaimRate = visitClaimRate.toFixed(2);
-      result.claimApprovalRate.propertyClaimRate = propertyClaimRate.toFixed(2);
-      result.claimApprovalRate.loanClaimRate = loanClaimRate.toFixed(2);
-      let totalRefers = "0";
-      let totalReferralEarnings = "0";
-      result.totalReferralEarnings.totalReferralEarnings = totalReferralEarnings;
-      result.totalReferralEarnings.totalRefers = totalRefers;
+    
     return sendSuccessMessage('success', result, res);
 };
+
+// exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
+//     const result = {
+//       earnings: []
+//     };
+//     const params = payloadData.query;
+  
+//     // Visit counts
+//     const visitCounts = await utils.aggregateData(Visit, [
+//       {
+//         $match: {
+//           brokerId: mongoose.Types.ObjectId(params.brokerId),
+//           visitStatus: { $in: ["completed", "pending", "followup", "negotiation", "bought"] }
+//         }
+//       },
+//       {
+//         $group: {
+//           _id: "$visitStatus",
+//           count: { $sum: 1 }
+//         }
+//       },
+//       {
+//         $project: {
+//           _id: 0,
+//           status: "$_id",
+//           count: 1
+//         }
+//       }
+//     ]);
+    
+//     const obj3 = {
+//       completed: 0,
+//       pending: 0,
+//       followup: 0,
+//       negotiation: 0,
+//       bought: 0
+//     };
+//     for (const count of visitCounts) {
+//       obj3[count.status] = count.count;
+//     }
+    
+//     result.earnings.push({
+//       title: "visitDetails",
+//       completeVisit: obj3.completed,
+//       pendingVisit: obj3.pending,
+//       followUpVisit: obj3.followup,
+//       negotiationVisit: obj3.negotiation,
+//       boughtVisit: obj3.bought,
+//       total: obj3.completed + obj3.pending + obj3.followup + obj3.negotiation + obj3.bought
+//     });
+    
+//     // Loan query counts
+//     const loanQueryCounts = await utils.aggregateData(LoanQueryDetails, [
+//       {
+//         $match: {
+//           brokerId: mongoose.Types.ObjectId(params.brokerId),
+//           queryStatus: { $in: ["pending", "assigned", "matured", "notmatured"] }
+//         }
+//       },
+//       {
+//         $group: {
+//           _id: "$queryStatus",
+//           count: { $sum: 1 }
+//         }
+//       },
+//       {
+//         $project: {
+//           _id: 0,
+//           status: "$_id",
+//           count: 1
+//         }
+//       }
+//     ]);
+    
+//     const obj4 = {
+//       pending: 0,
+//       assigned: 0,
+//       matured: 0,
+//       notmatured: 0
+//     };
+//     for (const count of loanQueryCounts) {
+//       obj4[count.status] = count.count;
+//     }
+    
+//     result.earnings.push({
+//       title: "loanQuery",
+//       raisedQuery: obj4.pending,
+//       assignedQuery: obj4.assigned,
+//       maturedQuery: obj4.matured,
+//       notmaturedQuery: obj4.notmatured,
+//       total: obj4.pending + obj4.assigned + obj4.matured + obj4.notmatured
+//     });
+  
+//     return sendSuccessMessage('success', result, res);
+//   };
+  
 
 exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
   let nestoEarnings = 0;
@@ -270,34 +340,94 @@ exports.getAllBrokerEarningsForMobile = async (payloadData, res) => {
     obj2.paymentReceived = paymentReceived && paymentReceived[0] && paymentReceived[0].total ? paymentReceived[0].total : 0 ;
     obj2.total =  obj2.claimRaised +  obj2.claimApproved +  obj2.paymentReceived;
     result.earnings.push(obj2);
-    let obj3 = {};
-    obj3.title = "visitDetails";
-    let completeVisit = await utils.countDocuments(Visit, { visitStatus: "completed", brokerId:pararms.brokerId});
-    let pendingVisit = await utils.countDocuments(Visit, { visitStatus: "pending", brokerId:pararms.brokerId});
-    let followUpVisit = await utils.countDocuments(Visit, { visitStatus: "followup", brokerId:pararms.brokerId});
-    let negotiationVisit = await utils.countDocuments(Visit, { visitStatus: "negotiation", brokerId:pararms.brokerId});
-    let boughtVisit = await utils.countDocuments(Visit, { visitStatus: "bought", brokerId:pararms.brokerId});
-    let visitDetails = completeVisit + pendingVisit + followUpVisit + negotiationVisit + boughtVisit;
-    obj3.completeVisit = completeVisit;
-    obj3.pendingVisit = pendingVisit;
-    obj3.followUpVisit = followUpVisit;
-    obj3.negotiationVisit = negotiationVisit;
-    obj3.boughtVisit = boughtVisit;
-    obj3.total = visitDetails;
-    result.earnings.push(obj3);
-    let obj4 = {};
-    obj4.title  ="loanQuery"
-    let raisedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "pending", brokerId:pararms.brokerId});
-    let assignedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "assigned", brokerId:pararms.brokerId});
-    let maturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "matured", brokerId:pararms.brokerId});
-    let notmaturedQuery = await utils.countDocuments(LoanQueryDetails, { queryStatus: "notmatured", brokerId:pararms.brokerId});
-    let loanQuery = raisedQuery + assignedQuery + maturedQuery + notmaturedQuery;
-    obj4.raisedQuery = raisedQuery;
-    obj4.assignedQuery = assignedQuery;
-    obj4.maturedQuery = maturedQuery;
-    obj4.notmaturedQuery = notmaturedQuery;
-    obj4.total = loanQuery;
-    result.earnings.push(obj4);
+  
+      //-------
+    // Visit counts
+    const visitCounts = await utils.aggregateData(Visit, [
+        {
+          $match: {
+            brokerId: mongoose.Types.ObjectId(params.brokerId),
+            visitStatus: { $in: ["completed", "pending", "followup", "negotiation", "bought"] }
+          }
+        },
+        {
+          $group: {
+            _id: "$visitStatus",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            status: "$_id",
+            count: 1
+          }
+        }
+      ]);
+      
+      const obj3 = {
+        completed: 0,
+        pending: 0,
+        followup: 0,
+        negotiation: 0,
+        bought: 0
+      };
+      for (const count of visitCounts) {
+        obj3[count.status] = count.count;
+      }
+      
+      result.earnings.push({
+        title: "visitDetails",
+        completeVisit: obj3.completed,
+        pendingVisit: obj3.pending,
+        followUpVisit: obj3.followup,
+        negotiationVisit: obj3.negotiation,
+        boughtVisit: obj3.bought,
+        total: obj3.completed + obj3.pending + obj3.followup + obj3.negotiation + obj3.bought
+      });
+      
+      // Loan query counts
+      const loanQueryCounts = await utils.aggregateData(LoanQueryDetails, [
+        {
+          $match: {
+            brokerId: mongoose.Types.ObjectId(params.brokerId),
+            queryStatus: { $in: ["pending", "assigned", "matured", "notmatured"] }
+          }
+        },
+        {
+          $group: {
+            _id: "$queryStatus",
+            count: { $sum: 1 }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            status: "$_id",
+            count: 1
+          }
+        }
+      ]);
+      
+      const obj4 = {
+        pending: 0,
+        assigned: 0,
+        matured: 0,
+        notmatured: 0
+      };
+      for (const count of loanQueryCounts) {
+        obj4[count.status] = count.count;
+      }
+      
+      result.earnings.push({
+        title: "loanQuery",
+        raisedQuery: obj4.pending,
+        assignedQuery: obj4.assigned,
+        maturedQuery: obj4.matured,
+        notmaturedQuery: obj4.notmatured,
+        total: obj4.pending + obj4.assigned + obj4.matured + obj4.notmatured
+      });
+    //------
     let obj5 = {};
     obj5.title = "claimApprovalRate";
     let totalClaim =  await utils.countDocuments(Claim, {brokerId:pararms.brokerId});
