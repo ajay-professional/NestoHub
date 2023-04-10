@@ -45,10 +45,12 @@ exports.addVisitClaim = async (payloadData, res) => {
       builderId: visitDetails.builderId,
       brokerId:visitDetails.brokerId
     }
-    const data = await utils.upsertData(Claim,obj,obj);
+   await utils.upsertData(Claim,obj,obj);
+   const data =  await utils.updateData(Visit,{_id:pararms.visitId},{isVisitClaimRaised:true});
+   return sendSuccessMessage('Successfully added new claim',data, res);
   }
  
-  return sendSuccessMessage('Successfully added new claim', {}, res);
+
 };
 
 

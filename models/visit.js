@@ -33,6 +33,7 @@ const visitSchema = new Schema({
     builderPunctuality:{ type: String, default: null }, 
     builderCleanliness:{ type: String, default: null }, 
     rateTheSatisfaction:{ type: String, default: null },
+    isVisitClaimRaised:{ type: Boolean, default: false },
     isVisitClaimed:{ type: Boolean, default: false },
     visitBrokerage: { type: String, default: null },
     loanSupportTaken: { type: Boolean, default: false },
