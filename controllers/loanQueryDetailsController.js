@@ -31,7 +31,7 @@ exports.deleteLoanQueryDetails = async (payloadData, res) => {
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {
     let pararms = payloadData.query;
-    const populates = ['dsaId']
+    const populates = ['dsaId','clientId'];
     let query = { isDeleted: false };
     if (pararms.queryStatus) {
         query.queryStatus = pararms.queryStatus;
