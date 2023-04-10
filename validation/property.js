@@ -27,7 +27,7 @@ exports.addPropertyDetails = Joi.object().keys({
     termAndCondition: Joi.string().required(),
     visitBrokerage:Joi.string().optional(),
     isRecommended: Joi.string().optional(),
-    // isPromoted: Joi.string().required(),
+    ageOfProperty: Joi.string().optional(),
     recommendedProperties: Joi.string().optional(),
 });
 

@@ -84,6 +84,7 @@ const propertySchema = new Schema({
     visitBrokerage:{type:String,default:null},
     viewsCount:{type:Number,default:0},
     searchCount:{type:Number,default:0},
+    ageOfProperty:{type:String,default:null},
     isRecommended:{ type: Boolean, default: false },
     recommendedProperties: { type: Schema.ObjectId, ref: 'property', default: null },
 }, {
