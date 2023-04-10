@@ -79,8 +79,8 @@ exports.updateProperty = Joi.object().keys({
     maxPrice: Joi.string().required(),
     discountDescription: Joi.string().required(),
     floorPlanAndPricing: Joi.array().items(Joi.object().keys({
-        areaSquareFeet: Joi.string().required(),
-        areaSquareMeter: Joi.string().required(),
+        length: Joi.string().required(),
+        breadth: Joi.string().required(),
         price: Joi.string().required(),
         unitType: Joi.string().required(),
         quantity: Joi.string().required()
@@ -142,8 +142,8 @@ exports.filters = Joi.object().keys({
 
 exports.addFloorPlanAndPricing = Joi.object().keys({
     mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    areaSquareFeet: Joi.string().required(),
-    areaSquareMeter: Joi.string().required(),
+    length: Joi.string().required(),
+    breadth: Joi.string().required(),
     price: Joi.string().required(),
     onesqft: Joi.string().required(),
     unitType: Joi.string().required(),
@@ -159,8 +159,8 @@ exports.addFloorPlanAndPricing = Joi.object().keys({
 exports.updateFloorPlanAndPricing = Joi.object().keys({
     mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     floorPlanId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    areaSquareFeet: Joi.string().required(),
-    areaSquareMeter: Joi.string().required(),
+    length: Joi.string().required(),
+    breadth: Joi.string().required(),
     price: Joi.string().required(),
     unitType: Joi.string().required(),
     quantity: Joi.string().required(),

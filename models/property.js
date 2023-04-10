@@ -13,8 +13,8 @@ const propertySchema = new Schema({
     discountDescription:{ type: String, default: null },
     floorPlanAndPricing:[{ 
         floorPlanImageUrl:{type: String, default: null},
-        areaSquareFeet:{type: String, default: null},
-        areaSquareMeter:{type: String, default: null},
+        length:{type: String, default: null},
+        breadth:{type: String, default: null},
         price:{type: String, default: null},
         onesqft:{type: String, default: null},
         unitType:{type: String, default: null},
