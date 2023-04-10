@@ -14,8 +14,8 @@ exports.addLoanQueryDetails = async (payloadData, res) => {
     pararms.propertyId = boughtPropertyData.propertyId;
     pararms.builderId = boughtPropertyData.builderId;
     pararms.visitId = boughtPropertyData.visitId;
-    const data = await utils.saveData(LoanQueryDetails, pararms);
-    await utils.updateData(Visit,{_id:pararms.visitId},{loanSupportTaken:true});
+     await utils.saveData(LoanQueryDetails, pararms);
+    let data = await utils.updateData(Visit,{_id:boughtPropertyData.visitId},{loanSupportTaken:true});
     return sendSuccessMessage('Successfully added new category', data, res);
 };
 
