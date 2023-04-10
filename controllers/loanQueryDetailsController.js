@@ -72,7 +72,8 @@ exports.updateDisbursementDetails = async (payloadData, res) => {
         loanQueryId:data._id,
         builderId: data.builderId,
         brokerId: data.brokerId,
-        dsaId: data.dsaId
+        dsaId: data.dsaId,
+        brokerageAmount:"500"
     }
     await utils.upsertData(Claim, claimData, claimData)
     return sendSuccessMessage('DisbursementDetails details successfully updated', data, res);
