@@ -48,6 +48,7 @@ exports.updateClaimStatusForAdmin= Joi.object().keys({
 
 exports.filters = Joi.object().keys({
     propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
+    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     boughtPropertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     brokerId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),

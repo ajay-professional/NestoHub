@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 
 const propertySchema = new Schema({
     images:[{ type: String, default: null }],
-    // thumbnail:{type: String, default: null},
     subCompany:{type: String, default: null},
     isRera:{type: Boolean, default: null},
     possessionDate:{ type: String, default: null },

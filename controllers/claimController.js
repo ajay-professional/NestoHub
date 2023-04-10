@@ -153,6 +153,9 @@ exports.getAllClaim = async (payloadData, res) => {
   if (pararms.propertyId) {
     query.propertyId = pararms.propertyId;
   }
+  if (pararms.visitId) {
+    query.visitId = pararms.visitId;
+  }
   if (pararms.claimStatus) {
     query.claimStatus = pararms.claimStatus;
   }
@@ -247,6 +250,7 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
     data.push({
      visitId:visitClaims[i]._id,
      images:visitClaims[i].propertyId.images,
+     propetyId:visitClaims[i].propertyId,
      propetyName:visitClaims[i].propertyId.name,
      location:visitClaims[i].propertyId.location,
      builderName:visitClaims[i].builderId.name,

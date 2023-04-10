@@ -198,7 +198,6 @@ exports.getDisabledTime = async (payloadData, res) => {
       Visit.distinct('chooseSlot', query),
       Visit.distinct('followUpTime', query)
     ]);
-  
     const timeArr = [...chooseSlots, ...followUpTimes];
   
     return sendSuccessMessage("successful in getting all visit", [...new Set(timeArr)], res);
