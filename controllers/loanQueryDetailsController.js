@@ -69,7 +69,7 @@ exports.updateDisbursementDetails = async (payloadData, res) => {
         date: moment().date(),
         propertyId: data.propertyId,
         boughtPropertyId: data.boughtPropertyId,
-        loanQueryId:data._id,
+        loanQueryId:pararms.id,
         builderId: data.builderId,
         brokerId: data.brokerId,
         dsaId: data.dsaId,
