@@ -30,7 +30,7 @@ exports.addClaim = async (payloadData, res) => {
     claimPdfUrl = await S3.uploadFile(key, claimPdf.data, { publicRead: true, mimeType: claimPdf.mimetype }, 1);
     pararms["claimPdf"] = claimPdfUrl;
   }
-  const data = await utils.saveData(Claim, pararms);
+  const data = await utils.upsertData(Claim, pararms,pararms);
   return sendSuccessMessage('Successfully added new claim', data, res);
 };
 
@@ -89,7 +89,7 @@ exports.updateClaimStatusForBroker = async (payloadData, res) => {
   }
   else if(checkClaim.claimType=='dsa'){
     invoiceArr.push({
-      invoiceAmount:checkClaim.brokerageAmount*10/100,
+      invoiceAmount:"100",
       brokerId: checkClaim.brokerId,
       builderId: checkClaim.builderId,
       dsaId:checkClaim.dsaId,
@@ -99,7 +99,7 @@ exports.updateClaimStatusForBroker = async (payloadData, res) => {
   }
   else if(checkClaim.claimType=='visit'){
     invoiceArr.push({
-      invoiceAmount:checkClaim.brokerageAmount*10/100,
+      invoiceAmount:"100",
       brokerId: checkClaim.brokerId,
       builderId: checkClaim.builderId,
       claimId:pararms.id,
@@ -139,7 +139,7 @@ exports.getAllClaim = async (payloadData, res) => {
         model: 'visit',
         match:{}
     }]
-}, "propertyId","invoiceIds"];
+}, "propertyId","invoiceIds","visitId"];
   const query = { isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
