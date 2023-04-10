@@ -20,6 +20,7 @@ const claimSchema = new Schema({
     builderId: { type: Schema.ObjectId, ref: 'builder', default: null },
     brokerId: { type: Schema.ObjectId, ref: 'broker', default: null },
     dsaId: { type: Schema.ObjectId, ref: 'dsa', default: null },
+    loanQueryId: { type: Schema.ObjectId, ref: 'loanQueryDetails', default: null },
     invoiceIds: [{ type: Schema.ObjectId, ref: 'invoice', default: null }],
     isDeleted: { type: Boolean, default: false },
 }, {

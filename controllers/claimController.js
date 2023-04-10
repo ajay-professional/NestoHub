@@ -144,7 +144,16 @@ exports.getAllClaim = async (payloadData, res) => {
         model: 'visit',
         match:{}
     }]
-}, "propertyId","invoiceIds","visitId"];
+}, "propertyId","invoiceIds","visitId","dsaId",{
+  path: 'loanQueryId',
+  model: 'loanQueryDetails',
+  populate: [
+      {
+      path: 'clientId',
+      model: 'customer',
+      match:{}
+  }]
+}];
   const query = { isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
