@@ -7,7 +7,6 @@ exports.addLoanQueryDetails = Joi.object().keys({
     brokerId: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an brokerId oid').required(),
     loanRequirement: Joi.string().required(),
     requiredDate: Joi.string().required(),
-    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an brokerId oid').required(),
 });
 
 exports.updateLoanQueryDetails = Joi.object().keys({

@@ -22,13 +22,18 @@ exports.addClaim = async (payloadData, res) => {
 
 exports.addVisitClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
-  let claimCheck = await utils.getSingleData(Claim,{visitId:pararms.visitId});
+  const claimCheck = await utils.getSingleData(Claim, {
+    query: { visitId: pararms.visitId,claimType:'visit', isDeleted: false },
+  });
   if(claimCheck && size(claimCheck)){
     return sendErorMessage("CLaim Already Exist for this Visit", {}, res);
   }
+
   else{
-    let visitDetails = await utils.getSingleData(Visit,{_id:pararms.visitId});
-    if(!visitDetails.visitBrokerege){
+    const visitDetails = await utils.getSingleData(Visit, {
+      query: { _id:pararms.visitId },
+    });
+    if(!visitDetails.visitBrokerage){
       return sendErorMessage("No Brokerage For this Visit", {}, res);
     }
     let obj = {
@@ -43,7 +48,7 @@ exports.addVisitClaim = async (payloadData, res) => {
     const data = await utils.upsertData(Claim,obj,obj);
   }
  
-  return sendSuccessMessage('Successfully added new claim', data, res);
+  return sendSuccessMessage('Successfully added new claim', {}, res);
 };
 
 
