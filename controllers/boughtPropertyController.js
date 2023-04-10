@@ -85,6 +85,7 @@ console.log(propertyDetails);
       boughtPropertyId: data._id,
       builderId: pararms.builderId,
       brokerId: pararms.brokerId,
+      visitId:pararms.visitId,
     });
   }
 
