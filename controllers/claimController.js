@@ -16,41 +16,39 @@ const { Claim, BoughtProperty, Invoice, Notification , Visit } = require('../mod
 
 exports.addClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
-  if (payloadData && payloadData.files && payloadData.files.paymentPdf) {
-    let paymentPdf = payloadData.files.paymentPdf;
-    let key = S3.genKeyFromFilename(`paymentPdf`, paymentPdf.name || 'jpg', []);
-    let paymentPdfUrl;
-    paymentPdfUrl = await S3.uploadFile(key, paymentPdf.data, { publicRead: true, mimeType: paymentPdf.mimetype }, 1);
-    pararms["paymentPdf"] = paymentPdfUrl;
-  }
-  if (payloadData && payloadData.files && payloadData.files.claimPdf) {
-    let claimPdf = payloadData.files.claimPdf;
-    let key = S3.genKeyFromFilename(`claimPdf`, claimPdf.name || 'jpg', []);
-    let claimPdfUrl;
-    claimPdfUrl = await S3.uploadFile(key, claimPdf.data, { publicRead: true, mimeType: claimPdf.mimetype }, 1);
-    pararms["claimPdf"] = claimPdfUrl;
-  }
   const data = await utils.upsertData(Claim, pararms,pararms);
   return sendSuccessMessage('Successfully added new claim', data, res);
 };
 
+exports.addVisitClaim = async (payloadData, res) => {
+  const pararms = payloadData.body;
+  let claimCheck = await utils.getSingleData(Claim,{visitId:pararms.visitId});
+  if(claimCheck && size(claimCheck)){
+    return sendErorMessage("CLaim Already Exist for this Visit", {}, res);
+  }
+  else{
+    let visitDetails = await utils.getSingleData(Visit,{_id:pararms.visitId});
+    if(!visitDetails.visitBrokerege){
+      return sendErorMessage("No Brokerage For this Visit", {}, res);
+    }
+    let obj = {
+      claimType:"visit",
+      milestoneNumber:"1",
+      brokerageAmount:visitDetails.visitBrokerege,
+      visitId:pararms.visitId,
+      propertyId:visitDetails.propertyId,
+      builderId: visitDetails.builderId,
+      brokerId:visitDetails.brokerId
+    }
+    const data = await utils.upsertData(Claim,obj,obj);
+  }
+ 
+  return sendSuccessMessage('Successfully added new claim', data, res);
+};
+
+
 exports.updateClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
-  if (payloadData && payloadData.files && payloadData.files.paymentPdf) {
-    let paymentPdf = payloadData.files.paymentPdf;
-    let key = S3.genKeyFromFilename(`paymentPdf`, paymentPdf.name || 'jpg', []);
-    let paymentPdfUrl;
-    paymentPdfUrl = await S3.uploadFile(key, paymentPdf.data, { publicRead: true, mimeType: paymentPdf.mimetype }, 1);
-    pararms["paymentPdf"] = paymentPdfUrl;
-  }
-  if (payloadData && payloadData.files && payloadData.files.claimPdf) {
-    let claimPdf = payloadData.files.claimPdf;
-    let key = S3.genKeyFromFilename(`claimPdf`, claimPdf.name || 'jpg', []);
-    let claimPdfUrl;
-    claimPdfUrl = await S3.uploadFile(key, claimPdf.data, { publicRead: true, mimeType: claimPdf.mimetype }, 1);
-    pararms["claimPdf"] = claimPdfUrl;
-  }
-  const data = await utils.updateData(Claim, { _id: pararms.id }, pararms);
   return sendSuccessMessage('Claim details successfully updated', data, res);
 };
 exports.updateClaimStatusForAdmin = async (payloadData, res) => {
