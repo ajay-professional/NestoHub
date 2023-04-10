@@ -4,9 +4,10 @@ const validator = require('express-joi-validation').createValidator({});
 const router = express.Router();
 const authentication = require('../middlewares/jwtToken');
 const claimController = require('../controllers/claimController');
-const { addClaim, updateClaim, id, filters, updateClaimStatusForBroker, getPropertiesEligibleForClaim, updateClaimStatusForAdmin } = require('../validation/claim');
+const { addClaim, updateClaim, id, filters, updateClaimStatusForBroker, getPropertiesEligibleForClaim, updateClaimStatusForAdmin ,addVisitClaim} = require('../validation/claim');
 
 router.post('/addClaim', authentication, validator.body(addClaim), claimController.addClaim);
+router.post('/addVisitClaim', authentication, validator.body(addVisitClaim), claimController.addVisitClaim);
 router.put('/updateClaim', authentication, validator.body(updateClaim), claimController.updateClaim);
 router.delete('/deleteClaim', authentication, validator.query(id), claimController.deleteClaim);
 router.get('/getAllClaim', authentication,validator.query(filters), claimController.getAllClaim);
