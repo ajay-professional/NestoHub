@@ -279,9 +279,9 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
 };
 
 exports.dummy = async (payloadData, res) => {
-  let options = { format: 'A4' };
+ // let options = { format: 'A4' };
   // Example of options with args //
-  // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+   let options = {  headless: true, format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
   
   let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
   // or //
