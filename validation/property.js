@@ -29,6 +29,7 @@ exports.addPropertyDetails = Joi.object().keys({
     isRecommended: Joi.string().optional(),
     // isPromoted: Joi.string().required(),
     recommendedProperties: Joi.string().optional(),
+    currentlyComparing: Joi.string().required(),
 });
 
 exports.updatePropertyDetails = Joi.object().keys({

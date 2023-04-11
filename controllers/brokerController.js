@@ -287,6 +287,95 @@ exports.updatePreferences = async (payloadData, res) => {
     return sendSuccessMessage("Preferences Updated Successfully", data, res);
 };
 
+exports.addBroker = async (payloadData, res) => {
+    const pararms = payloadData.body;
+    if (payloadData && payloadData.files && payloadData.files.documents) {
+        let images = Array.isArray(payloadData.files.documents)
+            ? payloadData.files.documents
+            : compact([payloadData.files.documents]);
+        let PromiseArr = [];
+        for (let i = 0; i < images.length; i++) {
+            key = S3.genKeyFromFilename(
+                `personalDocuments`,
+                images[i].name || "jpg",
+                []
+            );
+            PromiseArr.push(
+                S3.uploadFile(
+                    key,
+                    images[i].data,
+                    { publicRead: true, mimeType: images[i].mimetype },
+                    1
+                )
+            );
+        }
+        pararms.documents = await Promise.all(PromiseArr);
+    }
+
+    if (payloadData && payloadData.files && payloadData.files.profilePicture) {
+        let profilePicture = payloadData.files.profilePicture;
+        let key = S3.genKeyFromFilename(
+            `profilePicture`,
+            profilePicture.name || "jpg",
+            []
+        );
+        let profilePictureUrl;
+        profilePictureUrl = await S3.uploadFile(
+            key,
+            profilePicture.data,
+            { publicRead: true, mimeType: profilePicture.mimetype },
+            1
+        );
+        pararms.profilePicture = profilePictureUrl;
+    }
+    const data = await utils.saveData(Broker, pararms);
+    return sendSuccessMessage('Successfully added new BROKER', data, res);
+};
+
+exports.updateBroker = async (payloadData, res) => {
+    const pararms = payloadData.body;
+    if (payloadData && payloadData.files && payloadData.files.documents) {
+        let images = Array.isArray(payloadData.files.documents)
+            ? payloadData.files.documents
+            : compact([payloadData.files.documents]);
+        let PromiseArr = [];
+        for (let i = 0; i < images.length; i++) {
+            key = S3.genKeyFromFilename(
+                `personalDocuments`,
+                images[i].name || "jpg",
+                []
+            );
+            PromiseArr.push(
+                S3.uploadFile(
+                    key,
+                    images[i].data,
+                    { publicRead: true, mimeType: images[i].mimetype },
+                    1
+                )
+            );
+        }
+        pararms.documents = await Promise.all(PromiseArr);
+    }
+
+    if (payloadData && payloadData.files && payloadData.files.profilePicture) {
+        let profilePicture = payloadData.files.profilePicture;
+        let key = S3.genKeyFromFilename(
+            `profilePicture`,
+            profilePicture.name || "jpg",
+            []
+        );
+        let profilePictureUrl;
+        profilePictureUrl = await S3.uploadFile(
+            key,
+            profilePicture.data,
+            { publicRead: true, mimeType: profilePicture.mimetype },
+            1
+        );
+        pararms.profilePicture = profilePictureUrl;
+    }
+    const data = await utils.updateData(Broker, { _id: pararms.id }, pararms);
+    return sendSuccessMessage("Broker Details Updated Successfully", data, res);
+};
 
 exports.deleteBroker = async (payloadData, res) => {
     const pararms = payloadData.query;

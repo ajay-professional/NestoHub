@@ -220,7 +220,6 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
     pageNo: pararms.pageNo,
     populates,
   });
-
   for(let i=0;i<propertyClaims.length;i++){
  data.push({
   boughtPropertyId:propertyClaims[i]._id,
