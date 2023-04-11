@@ -15,6 +15,25 @@ exports.registerName = Joi.object().keys({
     referalCode: Joi.string().optional().allow(''),
 });
 
+exports.addBroker = Joi.object().keys({
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    phoneNumber: Joi.string().min(10).max(10).required(),
+    address: Joi.string().required(),
+    panNumber: Joi.string().required(),
+    reraRegistrationNumber: Joi.string().required(),
+});
+
+exports.updateBroker = Joi.object().keys({
+    id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
+    name: Joi.string().required(),
+    email: Joi.string().email().required(),
+    phoneNumber: Joi.string().min(10).max(10).required(),
+    address: Joi.string().required(),
+    panNumber: Joi.string().required(),
+    reraRegistrationNumber: Joi.string().required(),
+});
+
 exports.registerFromReferal = Joi.object().keys({
     name: Joi.string().required(),
     phoneNumber: Joi.string().min(10).max(10).required(),
