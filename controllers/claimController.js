@@ -287,7 +287,7 @@ exports.dummy = async (payloadData, res) => {
   // or //
   html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
     console.log("PDF Buffer:-", pdfBuffer);
-    return sendSuccessMessage("success", pdfBuffer, res);
+    return sendSuccessMessage("success", pdfBuffer.toString('base64'), res);
   });
 
 };
