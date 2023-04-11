@@ -293,7 +293,8 @@ exports.dummy = async (payloadData, res) => {
         console.log(err);
     } else {
         console.log(buffer)
-        res.header('Content-type', 'application/pdf')
+        res.setHeader('Content-type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment;filename="filename.pdf');
         res.send(buffer)
     }
 })
