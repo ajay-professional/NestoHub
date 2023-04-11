@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const loanQueryDetailsSchema = new Schema({
     propertyType: { type: String, default: null },
     propertyId: { type: Schema.ObjectId, ref: 'property', default: null },
-    boughtPropertyId: { type: Schema.ObjectId, ref: 'boughtProperty', default: null },
+    boughtPropertyId: { type: Schema.ObjectId, ref: 'bought', default: null },
     clientId: { type: Schema.ObjectId, ref: 'customer', default: null },
     brokerId: { type: Schema.ObjectId, ref: 'broker', default: null },
     builderId: { type: Schema.ObjectId, ref: 'builder', default: null },

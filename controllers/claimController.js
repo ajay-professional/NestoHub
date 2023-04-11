@@ -2,7 +2,7 @@ const { toLower, size } = require('lodash');
 const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
-// var html_to_pdf = require('html-pdf-node');
+//var html_to_pdf = require('html-pdf-node');
 let S3 = require("../helpers/s3/index")({
   aws_s3: {
     accessKey: env.S3_ACCESSKEYID,
@@ -59,7 +59,6 @@ exports.updateClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
   return sendSuccessMessage('Claim details successfully updated', data, res);
 };
-
 exports.updateClaimStatusForAdmin = async (payloadData, res) => {
   const pararms = payloadData.body;
   if(pararms.claimStatus=="paid"){
@@ -278,16 +277,16 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
   return sendSuccessMessage("success", data, res);
 };
 
-// exports.dummy = async (payloadData, res) => {
-//   let options = { format: 'A4' };
-//   // Example of options with args //
-//   // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+exports.dummy = async (payloadData, res) => {
+  let options = { format: 'A4' };
+  // Example of options with args //
+  // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
   
-//   let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
-//   // or //
-//   html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
-//     console.log("PDF Buffer:-", pdfBuffer);
-//     return sendSuccessMessage("success", pdfBuffer.toString('base64'), res);
-//   });
+  let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
+  // or //
+  html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
+    console.log("PDF Buffer:-", pdfBuffer);
+    return sendSuccessMessage("success", pdfBuffer.toString('base64'), res);
+  });
 
-// };
+};
