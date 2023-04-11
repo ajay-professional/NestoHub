@@ -18,7 +18,9 @@ exports.updateSubscription = async (payloadData, res) => {
 };
 exports.deleteSubscription= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Subscription, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Subscription, { _id: pararms.id},   [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('Subscription details deleted successfully!', {}, res);
 };
 exports.getAllSubscription = async (payloadData, res) => {

@@ -31,6 +31,10 @@ exports.addPropertyDetails = async (payloadData, res) => {
   if (pararms.milestones) {
     pararms.milestones = JSON.parse(pararms.milestones);
   }
+  if (pararms.currentlyComparing) {
+    pararms.currentlyComparing = JSON.parse(pararms.currentlyComparing);
+  }
+  
   if (payloadData && payloadData.files && payloadData.files.images) {
     let images = Array.isArray(payloadData.files.images)
       ? payloadData.files.images
