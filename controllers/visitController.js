@@ -259,6 +259,8 @@ exports.getAllVisitAlert = async (payloadData, res) => {
     day: 'numeric', month: 'numeric', year: 'numeric'
   }).replaceAll("/", '-');
 
+  console.log(formattedDate);
+  
   let query = {date:formattedDate, isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
