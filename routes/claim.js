@@ -15,5 +15,5 @@ router.get('/getClaimById', authentication, validator.query(id), claimController
 router.get('/getAllEligibleClaims', authentication, validator.query(getPropertiesEligibleForClaim), claimController.getPropertiesEligibleForClaim);
 router.put('/updateClaimStatusForBroker', authentication, validator.body(updateClaimStatusForBroker), claimController.updateClaimStatusForBroker);
 router.put('/updateClaimStatusForAdmin', authentication, validator.body(updateClaimStatusForAdmin), claimController.updateClaimStatusForAdmin);
-router.put('/dummy', claimController.dummy);
+router.get('/dummy', claimController.dummy);
 module.exports = router;
