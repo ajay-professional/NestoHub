@@ -46,7 +46,3 @@ const visitSchema = new Schema({
 visitSchema.set('toObject');
 visitSchema.set('toJSON');
 module.exports = mongoose.model('visit', visitSchema);
-
-
-
-
