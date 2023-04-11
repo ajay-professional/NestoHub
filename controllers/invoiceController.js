@@ -24,6 +24,7 @@ exports.updateStatusForInvoice = async (payloadData, res) => {
     const checkInvoice = await utils.getSingleData(Invoice, {
         query: { _id: pararms.id, isDeleted: false },
     });
+    console.log(checkInvoice);
     if (checkInvoice.status == "settled") {
         return sendErorMessage('Invoice is already settled by you', {}, res);
     }
