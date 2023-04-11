@@ -293,9 +293,10 @@ exports.dummy = async (payloadData, res) => {
         console.log(err);
     } else {
         console.log(buffer)
-        res.setHeader('Content-type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment;filename="filename.pdf');
-        res.send(buffer)
+        // res.setHeader('Content-type', 'application/pdf');
+        // res.setHeader('Content-Disposition', 'attachment;filename="filename.pdf');
+       // res.send(buffer)
+           return sendSuccessMessage("success", buffer.toString('base64'), res);
     }
 })
 };
