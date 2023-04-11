@@ -5,7 +5,7 @@ const {
   sendErorMessage,
   sendSuccessMessage,
 } = require("../helpers/sendResponse");
-const { BoughtProperty, Property, Claim, Customer } = require("../models");
+const { BoughtProperty, Property, Claim, Customer,Visit } = require("../models");
 const env = require("../config");
 let S3 = require("../helpers/s3/index")({
   aws_s3: {
@@ -52,7 +52,7 @@ exports.addBoughtProperty = async (payloadData, res) => {
   pararms.clientName = customerData[0].clientName;
 
   const data = await utils.saveData(BoughtProperty, pararms);
-
+       await utils.updateData(Visit,{_id:pararms.visitId},{boughtPropertyId:data._id});
   const propertyDetails = await utils.getData(Property, {
     query: { _id: pararms.propertyId },
     fields: ['_id', 'milestones','brokerageValue','brokerageType']
@@ -85,6 +85,7 @@ console.log(propertyDetails);
       boughtPropertyId: data._id,
       builderId: pararms.builderId,
       brokerId: pararms.brokerId,
+      visitId:pararms.visitId,
     });
   }
 

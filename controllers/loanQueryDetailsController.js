@@ -3,18 +3,19 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { LoanQueryDetails, Claim, LoanQueryHistory, BoughtProperty } = require('../models');
+const { LoanQueryDetails, Claim, LoanQueryHistory, BoughtProperty,Visit } = require('../models');
 
 exports.addLoanQueryDetails = async (payloadData, res) => {
     const pararms = payloadData.body;
     const boughtPropertyData = await utils.getSingleData(BoughtProperty, {
         query: { _id: pararms.boughtPropertyId, isDeleted: false },
-        populates,
+
     });
     pararms.propertyId = boughtPropertyData.propertyId;
     pararms.builderId = boughtPropertyData.builderId;
-    const data = await utils.saveData(LoanQueryDetails, pararms);
-
+    pararms.visitId = boughtPropertyData.visitId;
+     await utils.saveData(LoanQueryDetails, pararms);
+    let data = await utils.updateData(Visit,{_id:boughtPropertyData.visitId},{loanSupportTaken:true});
     return sendSuccessMessage('Successfully added new category', data, res);
 };
 
@@ -30,7 +31,7 @@ exports.deleteLoanQueryDetails = async (payloadData, res) => {
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {
     let pararms = payloadData.query;
-    const populates = ['dsaId']
+    const populates = ['dsaId','clientId'];
     let query = { isDeleted: false };
     if (pararms.queryStatus) {
         query.queryStatus = pararms.queryStatus;
@@ -68,9 +69,11 @@ exports.updateDisbursementDetails = async (payloadData, res) => {
         date: moment().date(),
         propertyId: data.propertyId,
         boughtPropertyId: data.boughtPropertyId,
+        loanQueryId:pararms.id,
         builderId: data.builderId,
         brokerId: data.brokerId,
-        dsaId: data.dsaId
+        dsaId: data.dsaId,
+        brokerageAmount:"500"
     }
     await utils.upsertData(Claim, claimData, claimData)
     return sendSuccessMessage('DisbursementDetails details successfully updated', data, res);

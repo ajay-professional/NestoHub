@@ -226,7 +226,7 @@ exports.registerFromReferal = async (payloadData, res) => {
 exports.updatePersonalInfo = async (payloadData, res) => {
     const pararms = payloadData.body;
     pararms.email = toLower(pararms.email);
-    console.log(payloadData.files);
+    
     let documentArr=[];
     if (payloadData && payloadData.files && payloadData.files.documents) {
         let images = Array.isArray(payloadData.files.documents)

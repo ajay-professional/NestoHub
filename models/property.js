@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 
 const propertySchema = new Schema({
     images:[{ type: String, default: null }],
-    // thumbnail:{type: String, default: null},
     subCompany:{type: String, default: null},
     isRera:{type: Boolean, default: null},
     possessionDate:{ type: String, default: null },
@@ -14,8 +13,8 @@ const propertySchema = new Schema({
     discountDescription:{ type: String, default: null },
     floorPlanAndPricing:[{ 
         floorPlanImageUrl:{type: String, default: null},
-        areaSquareFeet:{type: String, default: null},
-        areaSquareMeter:{type: String, default: null},
+        length:{type: String, default: null},
+        breadth:{type: String, default: null},
         price:{type: String, default: null},
         onesqft:{type: String, default: null},
         unitType:{type: String, default: null},
@@ -85,6 +84,7 @@ const propertySchema = new Schema({
     visitBrokerage:{type:String,default:null},
     viewsCount:{type:Number,default:0},
     searchCount:{type:Number,default:0},
+    ageOfProperty:{type:String,default:null},
     isRecommended:{ type: Boolean, default: false },
     recommendedProperties: { type: Schema.ObjectId, ref: 'property', default: null },
 }, {

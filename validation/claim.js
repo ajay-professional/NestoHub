@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 exports.addClaim = Joi.object().keys({
     claimType:Joi.string().required().valid('dsa','property','visit'),
-    milestoneNumber:Joi.string().required(),
+    milestoneNumber:Joi.string().optional().default(1),
     brokeragePercentage:Joi.string().optional(),
     brokerageAmount:Joi.string().required(),
     visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
@@ -10,6 +10,10 @@ exports.addClaim = Joi.object().keys({
     boughtPropertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     brokerId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
+});
+
+exports.addVisitClaim = Joi.object().keys({
+    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required()
 });
 
 exports.updateClaim= Joi.object().keys({
@@ -48,6 +52,7 @@ exports.updateClaimStatusForAdmin= Joi.object().keys({
 
 exports.filters = Joi.object().keys({
     propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
+    visitId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     boughtPropertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),
     brokerId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').optional(),

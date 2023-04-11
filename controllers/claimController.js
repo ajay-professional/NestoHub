@@ -2,6 +2,7 @@ const { toLower, size } = require('lodash');
 const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
+var html_to_pdf = require('html-pdf-node');
 let S3 = require("../helpers/s3/index")({
   aws_s3: {
     accessKey: env.S3_ACCESSKEYID,
@@ -16,41 +17,46 @@ const { Claim, BoughtProperty, Invoice, Notification , Visit } = require('../mod
 
 exports.addClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
-  if (payloadData && payloadData.files && payloadData.files.paymentPdf) {
-    let paymentPdf = payloadData.files.paymentPdf;
-    let key = S3.genKeyFromFilename(`paymentPdf`, paymentPdf.name || 'jpg', []);
-    let paymentPdfUrl;
-    paymentPdfUrl = await S3.uploadFile(key, paymentPdf.data, { publicRead: true, mimeType: paymentPdf.mimetype }, 1);
-    pararms["paymentPdf"] = paymentPdfUrl;
-  }
-  if (payloadData && payloadData.files && payloadData.files.claimPdf) {
-    let claimPdf = payloadData.files.claimPdf;
-    let key = S3.genKeyFromFilename(`claimPdf`, claimPdf.name || 'jpg', []);
-    let claimPdfUrl;
-    claimPdfUrl = await S3.uploadFile(key, claimPdf.data, { publicRead: true, mimeType: claimPdf.mimetype }, 1);
-    pararms["claimPdf"] = claimPdfUrl;
-  }
-  const data = await utils.saveData(Claim, pararms);
+  const data = await utils.upsertData(Claim, pararms,pararms);
   return sendSuccessMessage('Successfully added new claim', data, res);
 };
 
+exports.addVisitClaim = async (payloadData, res) => {
+  const pararms = payloadData.body;
+  const claimCheck = await utils.getSingleData(Claim, {
+    query: { visitId: pararms.visitId,claimType:'visit', isDeleted: false },
+  });
+  if(claimCheck && size(claimCheck)){
+    return sendErorMessage("CLaim Already Exist for this Visit", {}, res);
+  }
+
+  else{
+    const visitDetails = await utils.getSingleData(Visit, {
+      query: { _id:pararms.visitId },
+    });
+    if(!visitDetails.visitBrokerage){
+      return sendErorMessage("No Brokerage For this Visit", {}, res);
+    }
+    let obj = {
+      claimType:"visit",
+      milestoneNumber:"1",
+      brokerageAmount:visitDetails.visitBrokerege,
+      visitId:pararms.visitId,
+      propertyId:visitDetails.propertyId,
+      builderId: visitDetails.builderId,
+      brokerId:visitDetails.brokerId
+    }
+   await utils.upsertData(Claim,obj,obj);
+   const data =  await utils.updateData(Visit,{_id:pararms.visitId},{isVisitClaimRaised:true});
+   return sendSuccessMessage('Successfully added new claim',data, res);
+  }
+ 
+
+};
+
+
 exports.updateClaim = async (payloadData, res) => {
   const pararms = payloadData.body;
-  if (payloadData && payloadData.files && payloadData.files.paymentPdf) {
-    let paymentPdf = payloadData.files.paymentPdf;
-    let key = S3.genKeyFromFilename(`paymentPdf`, paymentPdf.name || 'jpg', []);
-    let paymentPdfUrl;
-    paymentPdfUrl = await S3.uploadFile(key, paymentPdf.data, { publicRead: true, mimeType: paymentPdf.mimetype }, 1);
-    pararms["paymentPdf"] = paymentPdfUrl;
-  }
-  if (payloadData && payloadData.files && payloadData.files.claimPdf) {
-    let claimPdf = payloadData.files.claimPdf;
-    let key = S3.genKeyFromFilename(`claimPdf`, claimPdf.name || 'jpg', []);
-    let claimPdfUrl;
-    claimPdfUrl = await S3.uploadFile(key, claimPdf.data, { publicRead: true, mimeType: claimPdf.mimetype }, 1);
-    pararms["claimPdf"] = claimPdfUrl;
-  }
-  const data = await utils.updateData(Claim, { _id: pararms.id }, pararms);
   return sendSuccessMessage('Claim details successfully updated', data, res);
 };
 exports.updateClaimStatusForAdmin = async (payloadData, res) => {
@@ -89,7 +95,7 @@ exports.updateClaimStatusForBroker = async (payloadData, res) => {
   }
   else if(checkClaim.claimType=='dsa'){
     invoiceArr.push({
-      invoiceAmount:checkClaim.brokerageAmount*10/100,
+      invoiceAmount:"100",
       brokerId: checkClaim.brokerId,
       builderId: checkClaim.builderId,
       dsaId:checkClaim.dsaId,
@@ -99,7 +105,7 @@ exports.updateClaimStatusForBroker = async (payloadData, res) => {
   }
   else if(checkClaim.claimType=='visit'){
     invoiceArr.push({
-      invoiceAmount:checkClaim.brokerageAmount*10/100,
+      invoiceAmount:"100",
       brokerId: checkClaim.brokerId,
       builderId: checkClaim.builderId,
       claimId:pararms.id,
@@ -139,7 +145,16 @@ exports.getAllClaim = async (payloadData, res) => {
         model: 'visit',
         match:{}
     }]
-}, "propertyId","invoiceIds"];
+}, "propertyId","invoiceIds","visitId","dsaId",{
+  path: 'loanQueryId',
+  model: 'loanQueryDetails',
+  populate: [
+      {
+      path: 'clientId',
+      model: 'customer',
+      match:{}
+  }]
+}];
   const query = { isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
@@ -152,6 +167,9 @@ exports.getAllClaim = async (payloadData, res) => {
   }
   if (pararms.propertyId) {
     query.propertyId = pararms.propertyId;
+  }
+  if (pararms.visitId) {
+    query.visitId = pararms.visitId;
   }
   if (pararms.claimStatus) {
     query.claimStatus = pararms.claimStatus;
@@ -169,7 +187,7 @@ exports.getAllClaim = async (payloadData, res) => {
     }
   let data = await utils.getData(Claim, {
     query: query,
-    sort: { _id: -1 },
+    sort: {milestoneNumber:1},
     pageSize: pararms.pageSize,
     pageNo: pararms.pageNo,
     populates,
@@ -246,6 +264,7 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
     data.push({
      visitId:visitClaims[i]._id,
      images:visitClaims[i].propertyId.images,
+     propetyId:visitClaims[i].propertyId,
      propetyName:visitClaims[i].propertyId.name,
      location:visitClaims[i].propertyId.location,
      builderName:visitClaims[i].builderId.name,
@@ -258,29 +277,16 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
   return sendSuccessMessage("success", data, res);
 };
 
-// try {
-//   const requestUser = req.params.brokerId;
-//   const options = {
-//     query: {
-//       brokerId: requestUser,
-//       claimStatus: "pending",
-//     },
-//     populates:["brokerId", "builderId", "boughtPropertyId", "propertyId"]
-//   };
-//   const claimableProperties = await getData(Claim, options);
-//   if (claimableProperties.length > 0) {
-//     sendSuccessMessage(
-//       "Brokerage claimable properties",
-//       claimableProperties,
-//       res
-//     );
-//   } else {
-//     sendResourceNotFound(
-//       "No Brokerage claimable property exist!",
-//       claimableProperties,
-//       res
-//     );
-//   }
-// } catch (err) {
-//   return sendErorMessage("Here is Error", err.message, res);
-// }
+exports.dummy = async (payloadData, res) => {
+  let options = { format: 'A4' };
+  // Example of options with args //
+  // let options = { format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+  
+  let file = { content: "<h1>Welcome to html-pdf-node</h1>" };
+  // or //
+  html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
+    console.log("PDF Buffer:-", pdfBuffer);
+    return sendSuccessMessage("success", pdfBuffer.toString('base64'), res);
+  });
+
+};

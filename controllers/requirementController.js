@@ -7,12 +7,6 @@ const { Requirement, Visit } = require('../models');
 
 exports.addRequirement = async (payloadData, res) => {
     const pararms = payloadData.body;
-    if(pararms.unitType){
-        pararms.unitType = JSON.parse(pararms.unitType)
-    }
-    if(pararms.preferredLocation){
-        pararms.preferredLocation = JSON.parse(pararms.preferredLocation)
-    }
     const data = await utils.saveData(Requirement, pararms);
     return sendSuccessMessage('Successfully added new requirement', data, res);
 };

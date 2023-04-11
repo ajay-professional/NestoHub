@@ -27,13 +27,16 @@ const visitSchema = new Schema({
     customerId: { type: Schema.ObjectId, ref: 'customer', default: null },
     brokerId: { type: Schema.ObjectId, ref: 'broker', default: null },
     builderId: { type: Schema.ObjectId, ref: 'builder', default: null },
+    boughtPropertyId: { type: String, default: null },
     overAllRating:{ type: String, default: null }, // extra fields
     builderBehavior:{ type: String, default: null }, 
     builderPunctuality:{ type: String, default: null }, 
     builderCleanliness:{ type: String, default: null }, 
     rateTheSatisfaction:{ type: String, default: null },
+    isVisitClaimRaised:{ type: Boolean, default: false },
     isVisitClaimed:{ type: Boolean, default: false },
     visitBrokerage: { type: String, default: null },
+    loanSupportTaken: { type: Boolean, default: false },
     writeReview:{ type: String, default: null },
     isDeleted: { type: Boolean, default: false },
 }, {
