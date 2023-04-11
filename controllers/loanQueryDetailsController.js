@@ -31,7 +31,7 @@ exports.deleteLoanQueryDetails = async (payloadData, res) => {
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {
     let pararms = payloadData.query;
-    const populates = ['dsaId']
+    const populates = ['dsaId','clientId'];
     let query = { isDeleted: false };
     if (pararms.queryStatus) {
         query.queryStatus = pararms.queryStatus;
@@ -69,9 +69,11 @@ exports.updateDisbursementDetails = async (payloadData, res) => {
         date: moment().date(),
         propertyId: data.propertyId,
         boughtPropertyId: data.boughtPropertyId,
+        loanQueryId:pararms.id,
         builderId: data.builderId,
         brokerId: data.brokerId,
-        dsaId: data.dsaId
+        dsaId: data.dsaId,
+        brokerageAmount:"500"
     }
     await utils.upsertData(Claim, claimData, claimData)
     return sendSuccessMessage('DisbursementDetails details successfully updated', data, res);

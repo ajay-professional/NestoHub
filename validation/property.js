@@ -30,6 +30,7 @@ exports.addPropertyDetails = Joi.object().keys({
     isRecommended: Joi.string().optional(),
     ageOfProperty: Joi.string().optional(),
     recommendedProperties: Joi.string().optional(),
+    currentlyComparing: Joi.string().required(),
 });
 
 exports.updatePropertyDetails = Joi.object().keys({

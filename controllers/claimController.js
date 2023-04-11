@@ -2,6 +2,7 @@ const { toLower, size } = require('lodash');
 const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
+const pdf = require('html-pdf');
 let S3 = require("../helpers/s3/index")({
   aws_s3: {
     accessKey: env.S3_ACCESSKEYID,
@@ -144,7 +145,16 @@ exports.getAllClaim = async (payloadData, res) => {
         model: 'visit',
         match:{}
     }]
-}, "propertyId","invoiceIds","visitId"];
+}, "propertyId","invoiceIds","visitId","dsaId",{
+  path: 'loanQueryId',
+  model: 'loanQueryDetails',
+  populate: [
+      {
+      path: 'clientId',
+      model: 'customer',
+      match:{}
+  }]
+}];
   const query = { isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
@@ -228,7 +238,6 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
     pageNo: pararms.pageNo,
     populates,
   });
-
   for(let i=0;i<propertyClaims.length;i++){
  data.push({
   boughtPropertyId:propertyClaims[i]._id,
@@ -268,29 +277,26 @@ exports.getPropertiesEligibleForClaim = async (payloadData, res) => {
   return sendSuccessMessage("success", data, res);
 };
 
-// try {
-//   const requestUser = req.params.brokerId;
-//   const options = {
-//     query: {
-//       brokerId: requestUser,
-//       claimStatus: "pending",
-//     },
-//     populates:["brokerId", "builderId", "boughtPropertyId", "propertyId"]
-//   };
-//   const claimableProperties = await getData(Claim, options);
-//   if (claimableProperties.length > 0) {
-//     sendSuccessMessage(
-//       "Brokerage claimable properties",
-//       claimableProperties,
-//       res
-//     );
-//   } else {
-//     sendResourceNotFound(
-//       "No Brokerage claimable property exist!",
-//       claimableProperties,
-//       res
-//     );
-//   }
-// } catch (err) {
-//   return sendErorMessage("Here is Error", err.message, res);
-// }
+exports.dummy = async (payloadData, res) => {
+ // let options = { format: 'A4' };
+  // Example of options with args //
+  //  let options = {  headless: true, format: 'A4', args: ['--no-sandbox', '--disable-setuid-sandbox'] };
+  
+   let file = "<h1>Welcome to html-pdf-node</h1>";
+  // // or //
+  // html_to_pdf.generatePdf(file, options).then(pdfBuffer => {
+  //   console.log("PDF Buffer:-", pdfBuffer);
+  //   return sendSuccessMessage("success", pdfBuffer.toString('base64'), res);
+  // });
+  pdf.create(file).toBuffer(function (err, buffer) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(buffer)
+        // res.setHeader('Content-type', 'application/pdf');
+        // res.setHeader('Content-Disposition', 'attachment;filename="filename.pdf');
+       // res.send(buffer)
+           return sendSuccessMessage("success", buffer.toString('base64'), res);
+    }
+})
+};
