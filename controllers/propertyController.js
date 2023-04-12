@@ -155,7 +155,7 @@ exports.deleteProperty = async (payloadData, res) => {
 exports.getAllProperty = async (payloadData, res) => {
   let pararms = payloadData.query;
 
-  const populates = ["builderId", "loanApprovedByIds","propertyType"];
+  const populates = ["builderId", "loanApprovedByIds","propertyType","nearByAreaId","amenitiesId","locationAdvantagesId"];
   let query = { isDeleted: false, sort: { _id: 1 } };
   if (pararms.builderId) {
     query.builderId = pararms.builderId;

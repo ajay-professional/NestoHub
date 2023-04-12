@@ -30,12 +30,12 @@ const propertySchema = new Schema({
     location: { type: String, default: null },
     propertyType:{ type: Schema.ObjectId, ref: 'propertyCategory', default: null },
     subPropertyType:{ type: Schema.ObjectId, ref: 'propertySubCategory', default: null },
-    nearbyAreas:[ { type: String, default: null }],
+   
     brokerageType:{ type: String, default: null },
     brokerageValue:{ type: String, default: null },
     brokerageTerms:{ type: String, default: null },
     amenitiesId: [{ type: Schema.ObjectId, ref: 'amenities', default: null }],
-    locationAdvantagesId: [{ type: Schema.ObjectId, ref: 'locationAdvantages', default: null }],
+    locationAdvantagesId: [{ type: Schema.ObjectId, ref: 'locationAdvantage', default: null }],
     nearByAreaId: [{ type: Schema.ObjectId, ref: 'nearByArea', default: null }],
     currentlyComparing: [{ 
         withLocality:{type: String, default: null},
