@@ -18,7 +18,9 @@ exports.updateRaiseQuery = async (payloadData, res) => {
 };
 exports.deleteRaiseQuery= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(RaiseQuery, { _id: pararms.id}, { isDeleted: true }, {});
+    await utils.updateData(RaiseQuery, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllRaiseQuery = async (payloadData, res) => {

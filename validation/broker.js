@@ -70,7 +70,7 @@ exports.updatePreferences = Joi.object().keys({
 });
 
 exports.filters = Joi.object().keys({
-    pageSize:Joi.string().optional().default(500),
+    pageSize:Joi.string().optional().default(10),
     pageNo:Joi.string().optional().default(1),
 });
 

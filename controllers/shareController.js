@@ -14,7 +14,9 @@ exports.addShare = async (payloadData, res) => {
 
 exports.deleteShare= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Share, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Share, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllShare = async (payloadData, res) => {

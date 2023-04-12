@@ -5,7 +5,7 @@ const moment = require('moment');
 const env = require('../config');
 const privateKey = env.JWTOKEN;
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { ReferalEarnings, ReferalCode, Broker, Builder } = require('../models');
+const { ReferalEarnings, ReferalCode, Broker, Builder, Visit, Customer, BoughtProperty, Claim } = require('../models');
 let S3 = require('../helpers/s3/index')({
     aws_s3: {
         "accessKey": env.S3_ACCESSKEYID,
@@ -209,10 +209,6 @@ exports.registerFromReferal = async (payloadData, res) => {
 
         const user = await utils.saveData(Broker, pararms);
 
-
-
-
-
         let currDate = new Date();
 
         const referEarn = await utils.saveData(ReferalEarnings, { BrokerId: user[0]._id, BrokerPhoneNumber: user[0].phoneNumber, referDate: `${currDate}`, brokerId: pararms.brokerId });
@@ -226,8 +222,8 @@ exports.registerFromReferal = async (payloadData, res) => {
 exports.updatePersonalInfo = async (payloadData, res) => {
     const pararms = payloadData.body;
     pararms.email = toLower(pararms.email);
-    
-    let documentArr=[];
+
+    let documentArr = [];
     if (payloadData && payloadData.files && payloadData.files.documents) {
         let images = Array.isArray(payloadData.files.documents)
             ? payloadData.files.documents
@@ -379,28 +375,86 @@ exports.updateBroker = async (payloadData, res) => {
 
 exports.deleteBroker = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Broker, { _id: pararms.id }, { isDeleted: true }, {});
+    await utils.updateData(Broker, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('Broker details deleted successfully!', {}, res);
 };
 
+// exports.getAllBroker = async (payloadData, res) => {
+//     let pararms = payloadData.query;
+//     let query = { isDeleted: false };
+//     let data = await utils.getData(Broker, {
+//         query: query,
+//         sort: { _id: -1 },
+//         pageSize: pararms.pageSize,
+//         pageNo: pararms.pageNo,
+//     });
+//     data = JSON.parse(JSON.stringify(data));
+//     const count = await utils.countDocuments(Broker, query);
+
+//     for (let i = 0; i < data.length; i++) {
+//         data[i].noOfVisits = await utils.countDocuments(Visit, { brokerId: data[i]._id })
+//         data[i].noOfCustomers = await utils.countDocuments(Customer, { brokerId: data[i]._id })
+//         data[i].totalCount = count
+//     }
+//     return sendSuccessMessage('successful in getting all broker', data, res);
+// };
 exports.getAllBroker = async (payloadData, res) => {
-    let pararms = payloadData.query;
-    let query = { isDeleted: false };
-    let data = await utils.getData(Broker, {
-        query: query,
-        sort: { _id: -1 },
-        pageSize: pararms.pageSize,
-        pageNo: pararms.pageNo,
-    });
-    const count = await utils.countDocuments(Broker, query);
-    data = JSON.parse(JSON.stringify(data));
-    data.forEach(v => { v.totalCount = count });
-    return sendSuccessMessage('successful in getting all broker', data, res);
+    const params = payloadData.query;
+    const query = { isDeleted: false };
+
+    let [data, totalCount] = await Promise.all([
+        utils.getData(Broker, {
+            query: query,
+            sort: { _id: -1 },
+            pageSize: params.pageSize,
+            pageNo: params.pageNo,
+        }),
+        utils.countDocuments(Broker, query)
+    ]);
+    data = JSON.parse(JSON.stringify(data))
+    const brokerIds = data.map(d => d._id);
+    const [visitCounts, customerCounts, soldPropertiesCounts, claimsCounts] = await Promise.all([
+        utils.aggregateData(Visit, [
+            { $match: { brokerId: { $in: brokerIds } } },
+            { $group: { _id: "$brokerId", count: { $sum: 1 } } }
+        ]),
+        utils.aggregateData(Customer, [
+            { $match: { brokerId: { $in: brokerIds } } },
+            { $group: { _id: "$brokerId", count: { $sum: 1 } } }
+        ]),
+        utils.aggregateData(BoughtProperty, [
+            { $match: { brokerId: { $in: brokerIds } } },
+            { $group: { _id: "$brokerId", count: { $sum: 1 } } }
+        ]),
+        utils.aggregateData(Claim, [
+            { $match: { brokerId: { $in: brokerIds } } },
+            { $group: { _id: "$brokerId", count: { $sum: 1 } } }
+        ])
+    ]);
+
+    const visitCountsMap = new Map(visitCounts.map(v => [v._id.toString(), v.count]));
+    const customerCountsMap = new Map(customerCounts.map(c => [c._id.toString(), c.count]));
+    const soldPropertiesCountsMap = new Map(soldPropertiesCounts.map(s => [s._id.toString(), s.count]));
+    const claimsCountsMap = new Map(claimsCounts.map(cl => [cl._id.toString(), cl.count]));
+
+    let result = data.map(d => ({
+        ...d,
+        noOfVisits: visitCountsMap.get(d._id.toString()) || 0,
+        noOfCustomers: customerCountsMap.get(d._id.toString()) || 0,
+        noOfSoldProperties: soldPropertiesCountsMap.get(d._id.toString()) || 0,
+        noOfClaimsCount: claimsCountsMap.get(d._id.toString()) || 0,
+        totalCount
+    }));
+
+    return sendSuccessMessage('successful in getting all broker', result, res);
 };
 
 exports.getBrokerById = async (payloadData, res) => {
     const pararms = payloadData.query;
-    const data = await utils.getData(Broker, {
+    let query = { isDeleted: false };
+    let data = await utils.getData(Broker, {
         query: { _id: pararms.id, isDeleted: false },
     });
     return sendSuccessMessage('successful in getting broker by id', data, res);

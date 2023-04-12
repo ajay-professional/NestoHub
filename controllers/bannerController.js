@@ -61,7 +61,9 @@ exports.updateBanner = async (payloadData, res) => {
 
 exports.deleteBanner = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Banner, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(Banner, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage(' Banner details deleted successfully!', {}, res);
 };
 

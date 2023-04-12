@@ -18,7 +18,9 @@ exports.updateRaiseDispute = async (payloadData, res) => {
 };
 exports.deleteRaiseDispute= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(RaiseDispute, { _id: pararms.id}, { isDeleted: true }, {});
+    await utils.updateData(RaiseDispute, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllRaiseDispute = async (payloadData, res) => {

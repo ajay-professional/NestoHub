@@ -127,7 +127,9 @@ exports.updateClaimStatusForBroker = async (payloadData, res) => {
 
 exports.deleteClaim = async (payloadData, res) => {
   const pararms = payloadData.query;
-  await utils.updateData(Claim, { _id: pararms.id }, { isDeleted: true });
+  await utils.updateData(Claim, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
   return sendSuccessMessage("claim details deleted successfully!", {}, res);
 };
 

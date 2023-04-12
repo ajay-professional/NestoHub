@@ -27,7 +27,9 @@ exports.updateQueryChat = async (payloadData, res) => {
 };
 exports.deleteQueryChat= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(QueryChat, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(QueryChat, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('customer details deleted successfully!', {}, res);
 };
 exports.getAllQueryChat = async (payloadData, res) => {

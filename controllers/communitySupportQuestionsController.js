@@ -28,7 +28,9 @@ exports.updateCommunitySupportQuestions = async (payloadData, res) => {
 
 exports.deleteCommunitySupportQuestions= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(CommunitySupportQuestions, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(CommunitySupportQuestions, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('Questions details deleted successfully!', {}, res);
 };
 

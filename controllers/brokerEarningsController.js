@@ -21,7 +21,9 @@ exports.updateBrokerEarnings = async (payloadData, res) => {
 
 exports.deleteBrokerEarnings = async (payloadData, res) => {
   const pararms = payloadData.query;
-  await utils.updateData(BrokerEarnings, { _id: pararms.id }, { isDeleted: true });
+  await utils.updateData(BrokerEarnings, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
   return sendSuccessMessage('success', {}, res);
 };
 

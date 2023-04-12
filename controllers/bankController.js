@@ -42,7 +42,9 @@ exports.updateBank = async (payloadData, res) => {
 };
 exports.deleteBank= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Bank, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Bank, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllBank = async (payloadData, res) => {

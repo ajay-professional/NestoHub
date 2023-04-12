@@ -18,7 +18,9 @@ exports.updateRequirement = async (payloadData, res) => {
 };
 exports.deleteRequirement= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Requirement, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Requirement, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('requirement details deleted successfully!', {}, res);
 };
 exports.getAllRequirement = async (payloadData, res) => {

@@ -27,7 +27,9 @@ exports.updatePropertySubCategory = async (payloadData, res) => {
 };
 exports.deletePropertySubCategory= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(PropertySubCategory, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(PropertySubCategory, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllPropertySubCategory = async (payloadData, res) => {

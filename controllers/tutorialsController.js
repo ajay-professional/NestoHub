@@ -62,7 +62,9 @@ exports.updateTutorials = async (payloadData, res) => {
 
 exports.deleteTutorials = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Tutorials, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(Tutorials, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage(' Tutorials details deleted successfully!', {}, res);
 };
 
