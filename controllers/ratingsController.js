@@ -26,7 +26,9 @@ exports.updateRatings = async (payloadData, res) => {
 };
 exports.deleteRatings= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Ratings, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Ratings, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('customer details deleted successfully!', {}, res);
 };
 

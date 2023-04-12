@@ -25,7 +25,9 @@ exports.updateMatured = async (payloadData, res) => {
 };
 exports.deleteMatured= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Matured, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Matured, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllMatured = async (payloadData, res) => {

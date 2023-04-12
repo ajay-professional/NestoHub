@@ -182,7 +182,9 @@ exports.visitComment = async (payloadData, res) => {
 exports.deleteVisit = async (payloadData, res) => {
   const pararms = payloadData.query;
 
-  await utils.updateData(Visit, { _id: pararms.id }, { isDeleted: true });
+  await utils.updateData(Visit, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
   return sendSuccessMessage("visit deleted successfully!", {}, res);
 };
 exports.getDisabledTime = async (payloadData, res) => {

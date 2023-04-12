@@ -70,7 +70,9 @@ exports.updatePropertyCategory = async (payloadData, res) => {
 };
 exports.deletePropertyCategory= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(PropertyCategory, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(PropertyCategory, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllPropertyCategory = async (payloadData, res) => {

@@ -131,7 +131,9 @@ exports.deleteBoughtProperty = async (payloadData, res) => {
   await utils.updateData(
     BoughtProperty,
     { _id: pararms.id },
-    { isDeleted: true }
+    [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]
   );
   return sendSuccessMessage("Bought details deleted successfully!", {}, res);
 };

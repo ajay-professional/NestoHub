@@ -147,7 +147,9 @@ exports.deleteProperty = async (payloadData, res) => {
   const data = await utils.updateData(
     Property,
     { _id: pararms.id },
-    { isDeleted: true },
+    [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ],
     {}
   );
   return sendSuccessMessage("property deleted successfully!", data, res);

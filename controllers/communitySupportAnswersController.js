@@ -20,7 +20,9 @@ exports.updateCommunitySupportAnswers = async (payloadData, res) => {
 
 exports.deleteCommunitySupportAnswers= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(CommunitySupportAnswers, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(CommunitySupportAnswers, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('customer details deleted successfully!', {}, res);
 };
 

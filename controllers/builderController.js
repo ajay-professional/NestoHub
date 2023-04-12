@@ -163,7 +163,9 @@ exports.updateBuilder = async (payloadData, res) => {
 };
 exports.deleteBuilder = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Builder, { _id: pararms.id }, { isDeleted: true }, {});
+    await utils.updateData(Builder, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('Builder details deleted successfully!', {}, res);
 };
 exports.getAllBuilder = async (payloadData, res) => {

@@ -18,7 +18,9 @@ exports.updatePayment = async (payloadData, res) => {
 };
 exports.deletePayment= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Payment, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(Payment, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('deleted successfully!', {}, res);
 };
 exports.getAllPayment = async (payloadData, res) => {

@@ -27,7 +27,9 @@ exports.updateTermsAndConditionsBroker = async (payloadData, res) => {
 
 exports.deleteTermsAndConditionsBroker = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(TermsAndConditionsBroker, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(TermsAndConditionsBroker, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage(' TermsAndConditionsBroker details deleted successfully!', {}, res);
 };
 
