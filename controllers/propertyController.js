@@ -74,7 +74,6 @@ exports.addPropertyDetails = async (payloadData, res) => {
     );
     pararms.brochureUrl = brochureUrl;
   }
-  
 
   const data = await utils.saveData(Property, pararms);
   return sendSuccessMessage("Successfully added property!", data, res);
@@ -147,9 +146,7 @@ exports.deleteProperty = async (payloadData, res) => {
   const data = await utils.updateData(
     Property,
     { _id: pararms.id },
-    [
-        { $set: { isDeleted: { $not: "$isDeleted" } } }
-      ],
+    { isDeleted: true },
     {}
   );
   return sendSuccessMessage("property deleted successfully!", data, res);
@@ -612,20 +609,7 @@ exports.getPropertyAdvertiseMentDetailsById = async (payloadData, res) => {
   });
   return sendSuccessMessage('success', data, res);
 };
-///////////////////////////////////////////////////////////
 
-////////////////// add currently camparing ///////////////////
-
-exports.updateCurrentlyComparing = async (payloadData, res) => {
-  const pararms = payloadData.body;
-  for(let i=0;i<pararms.currentlyComparing.length;i++){
-    pararms.currentlyComparing[i].color = "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0");
-  }
-  await utils.updateData(Property,{_id:pararms.id},{currentlyComparing:pararms.currentlyComparing});
-  return sendSuccessMessage('success', {}, res);
-};
-
-/////////////////////////////////////////////////////////////
 exports.getPropertiesAnalyticsForIndividualProperty = async (payloadData, res) => {
   const pararms = payloadData.query;
 

@@ -37,6 +37,9 @@ const raiseQueryRoots = require("./raiseQuery");
 const adminRoots = require("./admin");
 const loanQueryHistoryRoots = require("./loanQueryHistory");
 const cityRoots = require("./city");
+const amenitiesRoots = require("./amenities");
+const locationAdvantageRoots = require("./locationAdvantage");
+const nearByAreaRoots = require("./nearByArea");
 const router = express.Router();
 
 router.use("/banner", bannerRoots);
@@ -79,5 +82,7 @@ router.use("/raiseQuery", raiseQueryRoots);
 router.use("/admin", adminRoots);
 router.use("/PropertySubCategory", PropertySubCategoryRoots);
 router.use("/city", cityRoots);
-cityRoots
+router.use("/amenities", amenitiesRoots);
+router.use("/locationAdvantage", locationAdvantageRoots);
+router.use("/nearByArea", nearByAreaRoots);
 module.exports = router;

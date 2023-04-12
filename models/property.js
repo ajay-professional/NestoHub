@@ -34,23 +34,10 @@ const propertySchema = new Schema({
     brokerageType:{ type: String, default: null },
     brokerageValue:{ type: String, default: null },
     brokerageTerms:{ type: String, default: null },
-    amenities: [{ 
-        iconUrl:{type: String, default: null},
-        name:{type: String, default: null},
-     }],
-    locationAdvantages:[{ 
-        iconUrl:{type: String, default: null},
-        name:{type: String, default: null},
-        distance:{type: String, default: null}
-    }],
-    propertyAdvertiseMentDetails:[{ 
-        iconUrl:{type: String, default: null},
-        name:{type: String, default: null},
-        location:{type: String, default: null},
-        distance:{type: String, default: null}
-    }],
+    amenitiesId: [{ type: Schema.ObjectId, ref: 'amenities', default: null }],
+    locationAdvantagesId: [{ type: Schema.ObjectId, ref: 'locationAdvantages', default: null }],
+    nearByAreaId: [{ type: Schema.ObjectId, ref: 'nearByArea', default: null }],
     currentlyComparing: [{ 
-        color:{type: String, default: null},
         withLocality:{type: String, default: null},
         currentPrice:{type: String, default: null},
         last1Year:{type: String, default: null},
