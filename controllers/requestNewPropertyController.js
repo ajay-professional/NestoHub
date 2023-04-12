@@ -19,7 +19,9 @@ exports.updateRequestNewProperty = async (payloadData, res) => {
 };
 exports.deleteRequestNewProperty= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(RequestNewProperty, { _id: pararms.id}, { isDeleted: true }, {});
+    await utils.updateData(RequestNewProperty, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('requestProperty details deleted successfully!', {}, res);
 };
 exports.getAllRequestNewProperty = async (payloadData, res) => {

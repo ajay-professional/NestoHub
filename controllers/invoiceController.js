@@ -34,7 +34,9 @@ exports.updateStatusForInvoice = async (payloadData, res) => {
 
 exports.deleteInvoice = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Invoice, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(Invoice, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('invoice details deleted successfully!', {}, res);
 };
 

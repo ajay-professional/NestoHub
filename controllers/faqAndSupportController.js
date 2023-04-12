@@ -29,7 +29,9 @@ exports.updateFaqAndSupport = async (payloadData, res) => {
 
 exports.deleteFaqAndSupport= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData( FaqAndSupport, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData( FaqAndSupport, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage(' FaqAndSupport details deleted successfully!', {}, res);
 };
 

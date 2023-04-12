@@ -26,7 +26,9 @@ exports.updateLoanQueryDetails = async (payloadData, res) => {
 };
 exports.deleteLoanQueryDetails = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(LoanQueryDetails, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(LoanQueryDetails, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('success', {}, res);
 };
 exports.getAllLoanQueryDetails = async (payloadData, res) => {

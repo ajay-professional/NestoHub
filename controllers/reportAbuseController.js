@@ -19,7 +19,9 @@ exports.updateReportAbuse = async (payloadData, res) => {
 };
 exports.deleteReportAbuse= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(ReportAbuse, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(ReportAbuse, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('deleted successfully!', {}, res);
 };
 exports.getAllReportAbuse = async (payloadData, res) => {

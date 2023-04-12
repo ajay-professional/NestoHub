@@ -12,7 +12,9 @@ exports.updateReferalEarnings= async (payloadData, res) => {
 };
 exports.deleteReferalEarnings= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(ReferalEarnings, { _id: pararms.id}, { isDeleted: true });
+    await utils.updateData(ReferalEarnings, { _id: pararms.id}, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('ReferalEarnings details deleted successfully!', {}, res);
 };
 

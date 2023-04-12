@@ -21,7 +21,9 @@ exports.updateRoles = async (payloadData, res) => {
 
 exports.deleteRoles = async (payloadData, res) => {
     const pararms = payloadData.query;
-   await utils.updateData(Roles, { _id: pararms.id }, { isDeleted: true }, {});
+   await utils.updateData(Roles, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ], {});
     return sendSuccessMessage('role deleted successfully!', {}, res);
 };
 

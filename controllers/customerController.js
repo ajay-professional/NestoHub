@@ -32,7 +32,9 @@ exports.updateCustomer = async (payloadData, res) => {
 };
 exports.deleteCustomer = async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Customer, { _id: pararms.id }, { isDeleted: true });
+    await utils.updateData(Customer, { _id: pararms.id }, [
+        { $set: { isDeleted: { $not: "$isDeleted" } } }
+      ]);
     return sendSuccessMessage('customer details deleted successfully!', {}, res);
 };
 exports.getAllCustomer = async (payloadData, res) => {
