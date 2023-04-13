@@ -203,6 +203,7 @@ exports.getDisabledTime = async (payloadData, res) => {
     const timeArr = [...chooseSlots, ...followUpTimes];
   
     return sendSuccessMessage("successful in getting all visit", [...new Set(timeArr)], res);
+  };
   
   // let pararms = payloadData.query;
   // let timeArr=[];
@@ -221,37 +222,6 @@ exports.getDisabledTime = async (payloadData, res) => {
   // }
   
   // return sendSuccessMessage("successful in getting all visit", timeArr, res);
-};
-
-exports.getAllVisit = async (payloadData, res) => {
-  let pararms = payloadData.query;
-  const populates = ["brokerId", "builderId", "customerId"];
-  let query = { isDeleted: false };
-  if (pararms.brokerId) {
-    query.brokerId = pararms.brokerId;
-  }
-  if (pararms.isPromoted) {
-    query.isPromoted = pararms.isPromoted;
-  }
-  if (pararms.requirementId) {
-    query.requirementId = pararms.requirementId;
-  }
-  if (pararms.customerId) {
-    query.customerId = pararms.customerId;
-  } 
-  let data = await utils.getData(Visit, {
-    query: query,
-    sort: { _id: -1 },
-    pageSize: pararms.pageSize,
-    pageNo: pararms.pageNo,
-    populates,
-  });
-
-  const count = await utils.countDocuments(Visit, query);
-  data = JSON.parse(JSON.stringify(data));
-  data.forEach(v => { v.totalCount = count });
-  return sendSuccessMessage("successful in getting all visit", data, res);
-};
 
 exports.getAllVisitAlert = async (payloadData, res) => {
   const pararms = payloadData.query;
@@ -275,7 +245,7 @@ exports.getAllVisitAlert = async (payloadData, res) => {
 };
 exports.getAllVisit = async (payloadData, res) => {
   let pararms = payloadData.query;
-  const populates = ["brokerId", "builderId", "customerId"];
+  const populates = ["brokerId", "builderId", "customerId",'propertyId'];
   let query = { isDeleted: false };
   if (pararms.brokerId) {
     query.brokerId = pararms.brokerId;
