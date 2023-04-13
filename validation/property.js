@@ -30,7 +30,6 @@ exports.addPropertyDetails = Joi.object().keys({
     isRecommended: Joi.string().optional(),
     ageOfProperty: Joi.string().optional(),
     recommendedProperties: Joi.string().optional(),
-    currentlyComparing: Joi.string().required(),
 });
 
 exports.updatePropertyDetails = Joi.object().keys({
@@ -184,115 +183,10 @@ exports.getFloorPlanAndPricingById = Joi.object().keys({
     floorPlanId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
 }) 
 
-
-
 exports.getAllFloorPlanAndPricing = Joi.object().keys({
     id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     unitType:Joi.array().items(Joi.string().optional()).optional(),
 }) 
-
-exports.addAmenities = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-})
-
-exports.updateAmenities = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    amenitiesId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-})
-
-exports.deleteAmenities = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    amenitiesId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-})
-
-
-exports.getAllAmenities = Joi.object().keys({
-    id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-
-exports.getAmenitiesById = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    amenitiesId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-/////////////////////////////  Location advantage///////////////////////////
-exports.addLocationAdvantages = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-    distance:Joi.string().required(),
-})
-
-exports.updateLocationAdvantages = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    locationAdvantagesId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-    distance:Joi.string().required(),
-})
-
-exports.deleteLocationAdvantages = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    locationAdvantagesId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-})
-
-
-exports.getAllLocationAdvantages = Joi.object().keys({
-    id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-
-exports.getLocationAdvantagesById = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    locationAdvantageId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-//////////////////////////////////////
-
-///////////////////ADvertiese property ADS////////////////////
-exports.addPropertyAdvertiseMentDetails = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-    location:Joi.string().required(),
-    distance:Joi.string().required(),
-})
-
-exports.updatePropertyAdvertiseMentDetails = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    propertyAdvertiseMentDetailsId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    name:Joi.string().required(),
-    location:Joi.string().required(),
-    distance:Joi.string().required(),
-})
-
-exports.deletePropertyAdvertiseMentDetails = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    propertyAdvertiseMentDetailsId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-})
-
-
-exports.getAllPropertyAdvertiseMentDetails = Joi.object().keys({
-    id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-
-exports.getPropertyAdvertiseMentDetailsById = Joi.object().keys({
-    mainId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    propertyAdvertiseMentDetailsId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-}) 
-//////////////////
-
-/////////// property Camparing///////////////
-
-exports.updateCurrentlyComparing = Joi.object().keys({
-    id:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
-    currentlyComparing:Joi.array().items(Joi.object().keys({
-        withLocality:Joi.string().required(),
-        currentPrice:Joi.string().required(),
-        last1Year:Joi.string().required(),
-        last3Year:Joi.string().required(),
-        last4Year:Joi.string().required(),
-    }))
-})
-
-////////////////////////////////////////////
-
 exports.getPropertiesAnalyticsForIndividualProperty = Joi.object().keys({
     builderId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     propertyId:Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),

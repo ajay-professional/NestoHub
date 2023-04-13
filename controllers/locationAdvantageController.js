@@ -3,7 +3,7 @@ const utils = require('../utils/apiHelper');
 const moment = require('moment');
 const env = require('../config');
 const { sendErorMessage, sendSuccessMessage } = require('../helpers/sendResponse');
-const { Bank  } = require('../models');
+const { LocationAdvantage  } = require('../models');
 let S3 = require("../helpers/s3/index")({
   aws_s3: {
     accessKey: env.S3_ACCESSKEYID,
@@ -14,63 +14,53 @@ let S3 = require("../helpers/s3/index")({
   },
 });
 
-exports.addBank = async (payloadData, res) => {
+exports.addLocationAdvantage = async (payloadData, res) => {
     const pararms = payloadData.body;
-
-    // const checkName = await utils.getData(Bank, {
-    //     query: { name: pararms.name, isDeleted: false },
-    //     fields: ['_id']
-    // });
-
-    // if (size(checkName)) {
-    //     return sendErorMessage('Bank is already present', {}, res);
-    // }
-
     if (payloadData && payloadData.files && payloadData.files.image) {
         let image = payloadData.files.image;
-        let key = S3.genKeyFromFilename(`bank`, image.name || 'jpg', []);
+        let key = S3.genKeyFromFilename(`locationAdvantage`, image.name || 'jpg', []);
         pararms["image"] = await S3.uploadFile(key, image.data, { publicRead: true, mimeType: image.mimetype }, 1);
     }
-    const data = await utils.saveData(Bank, pararms);
+    const data = await utils.saveData(LocationAdvantage, pararms);
     return sendSuccessMessage('Success', data, res);
 };
 
-exports.updateBank = async (payloadData, res) => {
+exports.updateLocationAdvantage = async (payloadData, res) => {
     const pararms = payloadData.body;
     if (payloadData && payloadData.files && payloadData.files.image) {
         let image = payloadData.files.image;
-        let key = S3.genKeyFromFilename(`bank`, image.name || 'jpg', []);
+        let key = S3.genKeyFromFilename(`locationAdvantage`, image.name || 'jpg', []);
         pararms["image"] = await S3.uploadFile(key, image.data, { publicRead: true, mimeType: image.mimetype }, 1);
     }
-    const data = await utils.updateData(Bank, { _id: pararms.id }, pararms);
+    const data = await utils.updateData(LocationAdvantage, { _id: pararms.id }, pararms);
     return sendSuccessMessage('success', data, res);
 };
-exports.deleteBank= async (payloadData, res) => {
+exports.deleteLocationAdvantage= async (payloadData, res) => {
     const pararms = payloadData.query;
-    await utils.updateData(Bank, { _id: pararms.id}, [
+    await utils.updateData(LocationAdvantage, { _id: pararms.id}, [
         { $set: { isDeleted: { $not: "$isDeleted" } } }
       ]);
     return sendSuccessMessage('success', {}, res);
 };
-exports.getAllBank = async (payloadData, res) => {
+exports.getAllLocationAdvantage = async (payloadData, res) => {
     let pararms = payloadData.query;
     let query = { isDeleted: false };
-    let data = await utils.getData(Bank, {
+    let data = await utils.getData(LocationAdvantage, {
         query:query,
         sort:{_id:-1},
         pageSize:pararms.pageSize,
         pageNo:pararms.pageNo,
     });
 
-    const count  = await utils.countDocuments(Bank,query);
+    const count  = await utils.countDocuments(LocationAdvantage,query);
     data = JSON.parse(JSON.stringify(data));
     data.forEach(v => {v.totalCount = count});
     return sendSuccessMessage('success', data, res);
 };
 
-exports.getBankById = async (payloadData, res) => {
+exports.getLocationAdvantageById = async (payloadData, res) => {
     const pararms = payloadData.query;
-    const data = await utils.getData(Bank, {
+    const data = await utils.getData(LocationAdvantage, {
         query: { _id: pararms.id, isDeleted: false },
     });
     return sendSuccessMessage('success', data, res);

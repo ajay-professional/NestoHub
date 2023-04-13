@@ -42,7 +42,7 @@ exports.deleteSubscriptionOrder= async (payloadData, res) => {
 exports.getAllSubscriptionOrder = async (payloadData, res) => {
     let pararms = payloadData.query;
     let query = { isDeleted: false };
-    let populates = ['planId','selectProperties'];
+    let populates = ['planId','selectProperties','builderId'];
     let data = await utils.getData(SubscriptionOrder, {
         query:query,
         sort:{_id:-1},

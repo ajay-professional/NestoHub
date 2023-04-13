@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const raiseDisputeSchema = new Schema({
     reason: { type: String, default: null },
+    answer: { type: String, default: null },
     comments:  { type: String, default: null },
     visitId: { type: Schema.ObjectId, ref: 'visit', default: null },
     builderId: { type: Schema.ObjectId, ref: 'builder', default: null },

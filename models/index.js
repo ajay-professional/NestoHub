@@ -38,4 +38,7 @@ exports.Payment = require("./payment");
 exports.Invoice = require("./invoice");
 exports.RaiseQuery = require("./raiseQuery");
 exports.Admin = require("./admin");
+exports.Amenities = require("./amenities");
+exports.LocationAdvantage = require("./locationAdvantage");
+exports.NearByArea = require("./nearByArea");
 
