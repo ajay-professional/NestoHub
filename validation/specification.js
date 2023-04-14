@@ -1,12 +1,12 @@
 const Joi = require('joi');
 
-exports.addBank = Joi.object().keys({
+exports.addSpecification = Joi.object().keys({
     name:Joi.string().required(),
     length:Joi.string().required(),
     breadth:Joi.string().required()
 });
 
-exports.updateBank = Joi.object().keys({
+exports.updateSpecification = Joi.object().keys({
     id: Joi.string().regex(/^[0-9a-fA-F]{24}$/).message('must be an oid').required(),
     name:Joi.string().required(),
     length:Joi.string().required(),
