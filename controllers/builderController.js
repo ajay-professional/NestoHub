@@ -2,6 +2,7 @@ const { toLower, size, compact } = require('lodash');
 const Jwt = require('jsonwebtoken');
 const utils = require('../utils/apiHelper');
 const moment = require('moment');
+const mongoose = require('mongoose');
 const env = require('../config');
 const privateKey = env.JWTOKEN;
 
@@ -230,13 +231,26 @@ exports.getPendingInvoice = async (payloadData, res) => {
     const pararms = payloadData.query;
     let data = {};
     const pendingInvoice = await utils.countDocuments(Invoice,{ builderId: pararms.id, status: "pending", isDeleted: false } );
-    const pendingAmount = await utils.getData(Invoice,{ builderId: pararms.id, status: "pending", isDeleted: false } );
-    let totalAmount =0
-    for(var i of pendingAmount){
-        totalAmount += parseInt(i.invoiceAmount)
-    }
+    //const pendingAmount = await utils.getData(Invoice,{ builderId: pararms.id, status: "pending", isDeleted: false } );
+  
+    // let totalAmount =0
+    // for(var i of pendingAmount){
+    //     console.log(i.invoiceAmount)
+    //     totalAmount += parseInt(i.invoiceAmount)
+    // }
+    let totalAmount = await utils.aggregateData(Invoice, [
+        { $match: { builderId: mongoose.Types.ObjectId(pararms.id), status: "pending", isDeleted: false } },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: { $toInt: "$invoiceAmount" }
+            }
+          }
+        }
+      ]);
     data.pendingInvoice = pendingInvoice;
-    data.totalAmount = totalAmount;
+    data.totalAmount = totalAmount[0].total;
     data.averagepayoutTime = 10;
     data.pendingDays = 10;
     return sendSuccessMessage('successful in getting a builder by id', data, res);

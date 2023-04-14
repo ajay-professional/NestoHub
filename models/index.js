@@ -41,4 +41,7 @@ exports.Admin = require("./admin");
 exports.Amenities = require("./amenities");
 exports.LocationAdvantage = require("./locationAdvantage");
 exports.NearByArea = require("./nearByArea");
+exports.FurnishingDetail = require("./furnishingDetail");
+exports.Specification = require("./specification");
+
 

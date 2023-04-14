@@ -17,14 +17,14 @@ let S3 = require("../helpers/s3/index")({
 exports.addBank = async (payloadData, res) => {
     const pararms = payloadData.body;
 
-    // const checkName = await utils.getData(Bank, {
-    //     query: { name: pararms.name, isDeleted: false },
-    //     fields: ['_id']
-    // });
+    const checkName = await utils.getData(Bank, {
+        query: { name: pararms.name, isDeleted: false },
+        fields: ['_id']
+    });
 
-    // if (size(checkName)) {
-    //     return sendErorMessage('Bank is already present', {}, res);
-    // }
+    if (size(checkName)) {
+        return sendErorMessage('Bank is already present', {}, res);
+    }
 
     if (payloadData && payloadData.files && payloadData.files.image) {
         let image = payloadData.files.image;
