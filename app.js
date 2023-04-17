@@ -67,7 +67,7 @@ app.use('/api/v1/', routes);
 //   };
   
 //  swaggerAutogen(outputFile, endpointsFiles, doc);
-const swaggerDocument=require('./swagger-output.json');
+const swaggerDocument=require('./swager-output.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use((req, res, next) => {
     const err = new Error('Not Found');

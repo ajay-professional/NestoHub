@@ -207,6 +207,7 @@ exports.getPropertyById = async (payloadData, res) => {
   });
   let specificationArr = [];
   data = JSON.parse(JSON.stringify(data));
+ 
   for(let i=0;i<data[0].floorPlanAndPricing.length;i++){
     if(data[0].floorPlanAndPricing[i].specifications && data[0].floorPlanAndPricing[i].specifications.length!=0){
       specificationArr.push(...data[0].floorPlanAndPricing[i].specifications)

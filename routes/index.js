@@ -40,6 +40,8 @@ const cityRoots = require("./city");
 const amenitiesRoots = require("./amenities");
 const locationAdvantageRoots = require("./locationAdvantage");
 const nearByAreaRoots = require("./nearByArea");
+const specificationRoots = require("./specification");
+const furnishingDetailRoots = require("./furnishingDetail");
 const router = express.Router();
 
 router.use("/banner", bannerRoots);
@@ -85,4 +87,6 @@ router.use("/city", cityRoots);
 router.use("/amenities", amenitiesRoots);
 router.use("/locationAdvantage", locationAdvantageRoots);
 router.use("/nearByArea", nearByAreaRoots);
+router.use("/specification", specificationRoots);
+router.use("/furnishingDetail", furnishingDetailRoots);
 module.exports = router;
