@@ -10,7 +10,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   MONGODB:
     process.env.MONGODB ||
-    "mongodb+srv://nestohub:GCZqBN5LoM2rU6I8@nestohub.ivkbsxt.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://nestohub:GCZqBN5LoM2rU6I8@nestohub.ivkbsuxt.mongodb.net/?retryWrites=true&w=majority",
   JWTOKEN: process.env.JWTOKEN || "asd42e62-g465-4bc1-ae2c-da1f27kk3a20",
   S3_ACCESSKEYID: process.env.S3_ACCESSKEYID || "AKIAUBJXO2DHMX45B7XH",
   S3_SECRETACCESSKEY:
