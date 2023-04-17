@@ -30,7 +30,6 @@ const propertySchema = new Schema({
     location: { type: String, default: null },
     propertyType:{ type: Schema.ObjectId, ref: 'propertyCategory', default: null },
     subPropertyType:{ type: Schema.ObjectId, ref: 'propertySubCategory', default: null },
-   
     brokerageType:{ type: String, default: null },
     brokerageValue:{ type: String, default: null },
     brokerageTerms:{ type: String, default: null },
